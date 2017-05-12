@@ -1,0 +1,10 @@
+{
+    "folders":
+    [
+        {
+            "path": "./Assets",
+            "file_exclude_patterns": ["*.meta"]
+        }
+    ],
+    "solution_file": "./Music Rhythm Game.sln"
+}

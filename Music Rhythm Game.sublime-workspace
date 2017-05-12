@@ -1,0 +1,1335 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"so",
+				"songPanel\tImage"
+			],
+			[
+				"day",
+				"dayOfYear"
+			],
+			[
+				"da",
+				"daysPerMonth"
+			],
+			[
+				"ret",
+				"return"
+			],
+			[
+				"for",
+				"for\tFor Loop"
+			],
+			[
+				"arra",
+				"arrayTypeName"
+			],
+			[
+				"arr",
+				"arrayTypeName"
+			],
+			[
+				"mul",
+				"multiply"
+			],
+			[
+				"h",
+				"HugeInt"
+			],
+			[
+				"is",
+				"isZero"
+			],
+			[
+				"H",
+				"HugeInt"
+			],
+			[
+				"int",
+				"integer"
+			],
+			[
+				"do",
+				"down"
+			],
+			[
+				"def",
+				"default"
+			],
+			[
+				"S",
+				"SCREEN_HEIGHT"
+			],
+			[
+				"SCR",
+				"SCREEN_WIDTH"
+			],
+			[
+				"Puzz",
+				"Puzzle_array"
+			],
+			[
+				"P",
+				"Puzzle_array"
+			],
+			[
+				"Puzzle_",
+				"Puzzle_array"
+			],
+			[
+				"Puzzle",
+				"Puzzle_array"
+			],
+			[
+				"SDL_",
+				"SDL_Rect"
+			],
+			[
+				"bool",
+				"BitArray(bool[] values)\tBitArray(bool[] values)"
+			],
+			[
+				"ball",
+				"ballCount\tint"
+			],
+			[
+				"pla",
+				"playerInHole\tint"
+			],
+			[
+				"play",
+				"playerInHoleText\tText"
+			],
+			[
+				"ba",
+				"ballCount\tint"
+			],
+			[
+				"dice",
+				"diceNum"
+			],
+			[
+				"men",
+				"menuH"
+			],
+			[
+				"menu",
+				"menuClip"
+			],
+			[
+				"dic",
+				"diceH"
+			],
+			[
+				"di",
+				"dicePos"
+			],
+			[
+				"sta",
+				"startPos"
+			],
+			[
+				"push",
+				"pushStr〔variable〕"
+			],
+			[
+				"show",
+				"showNoLCard"
+			],
+			[
+				"se",
+				"senzai"
+			],
+			[
+				"parse",
+				"parseInt〔function〕"
+			],
+			[
+				"get",
+				"getAttribute"
+			],
+			[
+				"data",
+				"datalist〔variable〕"
+			],
+			[
+				"time",
+				"timestamp"
+			],
+			[
+				"list",
+				"list2"
+			],
+			[
+				"c",
+				"createlist"
+			],
+			[
+				"in",
+				"insertlist"
+			],
+			[
+				"In",
+				"Input\tInput"
+			],
+			[
+				"p",
+				"position\tVector3 { get; set; }"
+			],
+			[
+				"shot",
+				"shotSpawn\tTransform"
+			],
+			[
+				"Inst",
+				"Instantiate(Object original, Vector3 position, Quaternion rotation)\tObject"
+			],
+			[
+				"Ins",
+				"Instantiate(Object original)\tObject"
+			],
+			[
+				"Insta",
+				"Instantiate<T>(T original)\tT"
+			],
+			[
+				"Get",
+				"GetComponent<T>()\tT"
+			],
+			[
+				"pr",
+				"private\tprivate"
+			],
+			[
+				"Euler",
+				"Euler(float x, float y, float z)\tQuaternion"
+			],
+			[
+				"bo",
+				"Boundary\tBoundary"
+			],
+			[
+				"Cl",
+				"Clamp(float value, float min, float max)\tfloat"
+			],
+			[
+				"cl",
+				"Clamp(int value, int min, int max)\tint"
+			],
+			[
+				"Ve",
+				"Vector3\tVector3"
+			],
+			[
+				"rig",
+				"rigidbody\tComponent { get; }"
+			],
+			[
+				"mov",
+				"moveVertical\tfloat"
+			],
+			[
+				"count",
+				"countText\tText"
+			],
+			[
+				"an",
+				"answer"
+			],
+			[
+				"iM",
+				"imulTest"
+			],
+			[
+				"Write",
+				"WriteInt"
+			],
+			[
+				"val",
+				"val2"
+			],
+			[
+				"msg",
+				"msgiMulTest"
+			],
+			[
+				"msgM",
+				"msgMulTest"
+			],
+			[
+				"Sh",
+				"ShiftL1"
+			],
+			[
+				"print",
+				"printDemo"
+			],
+			[
+				"Eva",
+				"Evaluate_id\tint { get; set; }"
+			],
+			[
+				"eva",
+				"Evaluate_id\tint { get; set; }"
+			],
+			[
+				"e",
+				"Evaluate_id\tint { get; set; }"
+			],
+			[
+				"edit",
+				"editEvaluateList\tEvaluate_Data"
+			],
+			[
+				"dele",
+				"deleteEvaluateList\tEvaluate_Data"
+			],
+			[
+				"delegate",
+				"delegate(Evaluate_Data obj)\tdelegate(Evaluate_Data obj)"
+			],
+			[
+				"this",
+				"thisButton\t?"
+			],
+			[
+				"ToInt32",
+				"ToInt32(string value)\tint"
+			],
+			[
+				"ToIn",
+				"ToInt32(string value)\tint"
+			],
+			[
+				"User",
+				"User_i\tint { get; }"
+			],
+			[
+				"Res",
+				"Restaurant_address"
+			],
+			[
+				"re",
+				"restaurantQuery\tRestaurants_Model"
+			],
+			[
+				"Re",
+				"Restaurant_Data\tRestaurant_Data"
+			],
+			[
+				"View",
+				"ViewType\tint"
+			],
+			[
+				"R",
+				"Restaurant_name\tstring { get; set; }"
+			],
+			[
+				"Sql",
+				"SqlQuery_Restaurant_Details(string Restaurant_id)\tList<Restaurant_Data>"
+			],
+			[
+				"by",
+				"by_user_id\tint"
+			],
+			[
+				"asp",
+				"asp:Label"
+			],
+			[
+				"append",
+				"appendStr〔variable〕"
+			],
+			[
+				"ch",
+				"children〔function〕"
+			],
+			[
+				"dr",
+				"drink_id_list\tDropDownList"
+			],
+			[
+				"Select",
+				"SelectedValue"
+			],
+			[
+				"VI",
+				"ViewType\tint"
+			],
+			[
+				"V",
+				"ValueType\tValueType"
+			],
+			[
+				"User_s",
+				"User_signup_time\tDateTime"
+			],
+			[
+				"User_last",
+				"User_last_signin_time\tDateTime"
+			],
+			[
+				"E",
+				"Equals(string value)\tbool"
+			],
+			[
+				"div",
+				"divided"
+			],
+			[
+				"to",
+				"toUpperCase"
+			],
+			[
+				"my",
+				"myTable"
+			],
+			[
+				"ke",
+				"keyup〔function〕"
+			],
+			[
+				"bac",
+				"background-image"
+			],
+			[
+				"s",
+				"server"
+			],
+			[
+				"Con",
+				"ContentPlaceHolderID"
+			],
+			[
+				"Dr",
+				"DrinkName_Dropdown\tDropDownList"
+			],
+			[
+				"Drink",
+				"DrinkQty\tList<KeyValuePair<int, int>>"
+			],
+			[
+				"Order",
+				"OrderDrinks_Item_Dataset()\tvoid"
+			],
+			[
+				"Se",
+				"Session\tHttpSessionState { get; }"
+			],
+			[
+				"Wr",
+				"WriteChar"
+			],
+			[
+				"sz",
+				"szHanniFmt_3"
+			],
+			[
+				"HAN",
+				"HANOI_N"
+			],
+			[
+				"str",
+				"str2_1"
+			],
+			[
+				"add",
+				"addClass〔function〕"
+			],
+			[
+				"remv",
+				"removeClass〔function〕"
+			],
+			[
+				"bt-",
+				"bt-menu"
+			],
+			[
+				"no",
+				"nowrap"
+			],
+			[
+				"sys",
+				"susy-breakpoint"
+			],
+			[
+				"gutter",
+				"gutter-position"
+			],
+			[
+				"o",
+				"order_session"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"fi",
+				"field"
+			],
+			[
+				"order",
+				"orderdrink_drink_id\tDropDownList"
+			],
+			[
+				"Rows",
+				"Rows\tGridViewRowCollection { get; }"
+			],
+			[
+				"TOI",
+				"ToInt32(object value)\tint"
+			],
+			[
+				"Data",
+				"DataItemIndex\tint { get; }"
+			],
+			[
+				"Grid",
+				"GridViewRow\tGridViewRow"
+			],
+			[
+				"OrderDr",
+				"OrderDrinks_Item_View()\tvoid"
+			],
+			[
+				"ar",
+				"articles"
+			],
+			[
+				"dante",
+				"danteNow〔variable〕"
+			],
+			[
+				"du",
+				"dumps〔function〕"
+			],
+			[
+				"jso",
+				"json_file〔variable〕"
+			],
+			[
+				"enc",
+				"encoding='UTF-8"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Assets/Scripts/MetaData.cs",
+			"settings":
+			{
+				"buffer_size": 5981,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "using System.IO;\nusing System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\n\npublic class MapController : MonoBehaviour {\n\tpublic bool loadComplete;\n\n\tprivate List<MetaData> metaList;\n\tprivate int songIndex;\n\n\tvoid Start () {\n\t\tDontDestroyOnLoad(this);\n\t\tloadComplete = false;\n\t\tmetaList = new List<MetaData>();\n\t\tDirectoryInfo baseDir = new DirectoryInfo(\"Songs\");\n\t\tDirectoryInfo[] dirArray = baseDir.GetDirectories();\n\t\tforeach (DirectoryInfo subDir in dirArray) {\n\t\t\tFileInfo[] smFiles = subDir.GetFiles(\"*.sm\");\n\t\t\tif(smFiles.Length == 1){\n\t\t\t\tMetaData newSong = new MetaData(subDir, smFiles[0].FullName);\n\t\t\t\tDebug.Log(\"Now parsing: \" + smFiles[0].FullName);\n\t\t\t\tmetaList.Add(newSong);\n\t\t\t}\n\t\t}\n\t\tloadComplete = true;\n\t\tsongIndex = 0;\n\t}\n\n\tpublic List<MetaData> getSongList(){\n\t\treturn metaList;\n\t}\n\n\tpublic MetaData getCurrentSong(){\n\t\treturn metaList[songIndex];\n\t}\n\n\tpublic void shiftSong(bool right){\n\t\tint length = metaList.Count;\n\t\tsongIndex += right ? 1 : -1;\n\t\tif(songIndex == -1) songIndex = length - 1;\n\t\telse if(songIndex == length) songIndex = 0;\n\t}\n}\n",
+			"file": "Assets/Scripts/MapController.cs",
+			"file_size": 1093,
+			"file_write_time": 131388349489849602,
+			"settings":
+			{
+				"buffer_size": 1090,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix",
+				"scratch": true
+			}
+		},
+		{
+			"file": "Songs/Bad Apple!!/Bad Apple!!.sm",
+			"settings":
+			{
+				"buffer_size": 23974,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "using System;\nusing System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing UnityEngine.UI;\n\npublic class MenuController : MonoBehaviour {\n\tpublic Text MetaDataText;\n\tpublic RawImage backgroundImage;\n\tpublic Image black;\n\tpublic Animator anim;\n\n\tprivate MapController mapController;\n\tprivate Texture defaultBackgroundImage;\n\tprivate AudioSource nowPlaying;\n\tprivate string nowPlayingPath;\n\tprivate bool holdKey;\n\tprivate float MaxVol;\n\n\tvoid Start () {\n\t\tGameObject mapControllerObject = GameObject.FindWithTag(\"MapController\");\n\t\tif(mapControllerObject != null)\n\t\t\tmapController = mapControllerObject.GetComponent<MapController>();\n\t\tif(mapController == null)\n\t\t\tDebug.Log(\"Cannot find 'MapController' script\");\n\t\tholdKey = false;\n\t\tdefaultBackgroundImage = backgroundImage.mainTexture;\n\t\tnowPlaying = GetComponent<AudioSource>();\n\t\tMaxVol = nowPlaying.volume;\n\t\tloadSong();\n\t}\n\t\n\tvoid FixedUpdate () {\n\t\tfloat change = Input.GetAxis(\"Horizontal\");\n\t\tif(change != 0 && !holdKey) StartCoroutine(shift(change > 0));\n\t}\n\n\tIEnumerator shift(bool right){\n\t\tholdKey = true;\n\t\tmapController.shiftSong(right);\n\t\tloadSong();\n\t\tyield return new WaitForSeconds(.5f);\n\t\tholdKey = false;\n\t}\n\n\tvoid loadSong(){\n\t\ttry{\n\t\t\tif (!nowPlaying.isPlaying) nowPlaying.Stop();\n\t\t\tMetaData current = mapController.getCurrentSong();\n\t\t\tMetaDataText.text = current.title + \"\\n\\n\" + current.artist;\n\t\t\tif(current.musicPath != \"\")\n\t\t\t\tStartCoroutine (playSampleAudio(current.musicPath, current.sampleStart, current.sampleLength));\n\t\t\tif(current.backgroundPath != \"\")\n\t\t\t\tStartCoroutine (loadBg(current.backgroundPath));\n\t\t\telse\n\t\t\t\tbackgroundImage.texture = defaultBackgroundImage;\n\t\t}catch(Exception e){\n\t\t\tMetaDataText.text = \"We're sorry.\\n\\nYou don't have any song in list.\";\n\t\t\tDebug.Log(e);\n\t\t}\n\t}\n\n\tIEnumerator loadBg(string path){\n\t\tTexture2D tex;\n\t\ttex = new Texture2D(4, 4, TextureFormat.DXT5, false);\n\t\tWWW www = new WWW(\"file://\" + path.Replace(\"\\\\\", \"/\"));\n\t\tyield return www;\n\t\twww.LoadImageIntoTexture(tex);\n\t\tbackgroundImage.texture = tex;\n\t}\n\n\tIEnumerator playSampleAudio(string path, float timeStart, float timeDuration){\n\t\tnowPlayingPath = path;\n\t\tWWW www = new WWW(\"file://\" + path.Replace(\"\\\\\", \"/\"));\n\t\tyield return www;\n\t\tif(path.LastIndexOf(\".mp3\") != -1)\n\t\t\tnowPlaying.clip = NAudioPlayer.FromMp3Data(www.bytes);\n\t\telse\n\t\t\tnowPlaying.clip = www.GetAudioClip(false);\n\t\twhile(nowPlayingPath == path){\n\t\t\tnowPlaying.volume = MaxVol;\n\t\t\tnowPlaying.time = timeStart;\n\t\t\tnowPlaying.Play();\n\t\t\twhile(nowPlaying.time < (timeStart + timeDuration - 1)){\n\t\t\t\tyield return new WaitForSeconds(0.01f);\n\t\t\t\tif(nowPlayingPath != path) break;\n\t\t\t}\n\t\t\tfloat t = nowPlaying.volume;\n\t\t\twhile (t > 0.0f) {\n\t\t\t\tif(nowPlayingPath != path) break;\n\t\t\t\tt -= MaxVol / 100;\n\t\t\t\tnowPlaying.volume = t;\n\t\t\t\tyield return new WaitForSeconds(0.01f);\n\t\t\t}\n\t\t\tif(nowPlayingPath != path) break;\n\t\t\tnowPlaying.Stop();\n\t\t}\n\t}\n}\n",
+			"file": "Assets/Scripts/MenuController.cs",
+			"file_size": 2913,
+			"file_write_time": 131388348275661393,
+			"settings":
+			{
+				"buffer_size": 2910,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix",
+				"scratch": true
+			}
+		},
+		{
+			"file": "Assets/Scripts/LoadingController.cs",
+			"settings":
+			{
+				"buffer_size": 859,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/User/clang.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/User/clang.sublime-build",
+					""
+				],
+				[
+					"Packages/User/clang.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/clang.sublime-build",
+				"Run"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "install",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"toggle",
+				"View: Toggle Side Bar"
+			],
+			[
+				"vie",
+				"View: Toggle Side Bar"
+			]
+		],
+		"width": 814.0
+	},
+	"console":
+	{
+		"height": 190.0,
+		"history":
+		[
+			"clear()",
+			"clear",
+			"os.system(\"clear\")",
+			"import os",
+			"os.system(\"clear\")",
+			"clear()",
+			"clear",
+			"cls",
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts"
+	],
+	"file_history":
+	[
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/MusicController.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/GameController.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/FontBlinking.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Songs/[CMC-008]Little Busters! ~TV animation ver.~/Little Busters! ~TV animation ver.~.sm",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/ScoreDisplay.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/NAudioPlayer.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/songData.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/mapData.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/.gitignore",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/SuccessTrigger.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/LoadingController.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/MenuController.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Songs/Bad Apple!!/Bad Apple!!.sm",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Songs/Trust's  Dwi 2012.10.15 (NO.13) [ Little Busters! op] v1/Little Busters OP.sm",
+		"/D/Projects/UnityProjects/Pool-Homework/Assets/Script/HoleController.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/songAssets.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Music Rhythm Game.sublime-project",
+		"/D/Software Portable/PortableApps/Subline Text 3/Data/Packages/OmniSharp/PrebuiltOmniSharpServer/config.json",
+		"/C/Users/NarakuAngel/Desktop/hugeInt.cpp",
+		"/C/Users/NarakuAngel/Desktop/main.cpp",
+		"/D/Projects/SDL Project/SDLTest/src/SDLTest.cpp",
+		"/D/Projects/SDL Project/SDLTest/HW1_404262614_許孟傑.cpp",
+		"/D/Projects/SDL Project/SDLTest/SDLTest.cpp",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/LoadingController.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/NoteController.cs",
+		"/D/Projects/UnityProjects/Pool-Homework/Assets/Script/BallRollFix.cs",
+		"/D/Projects/UnityProjects/Pool-Homework/Assets/Script/CameraController.cs",
+		"/D/Projects/UnityProjects/Pool-Homework/Assets/Script/GlobalBallEffects.cs",
+		"/D/Projects/SDL Project/main.cpp",
+		"/D/Projects/UnityProjects/Space Shooter Exercise/Assets/Scripts/GameController.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/GameCollector.cs",
+		"/D/Projects/UnityProjects/Space Shooter Exercise/Assets/Scripts/DestroyByBoundary.cs",
+		"/D/Projects/UnityProjects/Space Shooter Exercise/Assets/Scripts/DestroyByContact.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/Mover.cs",
+		"/D/Projects/UnityProjects/Space Shooter Exercise/Assets/Scripts/Mover.cs",
+		"/D/Projects/UnityProjects/Roll-a-Ball-Exercise/Assets/Script/CameraController.cs",
+		"/D/Projects/UnityProjects/Pool-Homework/Assets/GlobalHoleEffects.cs",
+		"/D/Projects/UnityProjects/Space Shooter Exercise/Assets/Scripts/PlayerController.cs",
+		"/D/Projects/UnityProjects/Pool-Homework/Assets/globalBallEffects.cs",
+		"/D/Projects/UnityProjects/Roll-a-Ball-Exercise/Assets/Script/PlayerController.cs",
+		"/D/Projects/UnityProjects/Pool-Homework/Assets/Script/PlayerController.cs",
+		"/C/Users/NarakuAngel/Desktop/Games Topic.txt",
+		"/D/Projects/UnityProjects/Music Game/Assets/Scripts/ScoreBoard.js",
+		"/D/Projects/UnityProjects/Music Game/Assets/Scripts/Play_Song.js",
+		"/D/Projects/UnityProjects/Music Game/Assets/Scripts/Button.js",
+		"/D/Projects/UnityProjects/Music Game/Assets/Scripts/Note.js",
+		"/D/Projects/UnityProjects/Space Shooter Exercise/Assets/Scripts/DestoryByTime.cs",
+		"/D/Python/Red-DiscordBot/data/trivia/kurojp1.txt",
+		"/D/Python/Red-DiscordBot/data/trivia/kurojp.txt",
+		"/D/Projects/UnityProjects/Music Game/Assets/Note.js",
+		"/D/Python/WildBeast/runtime/commands/custom/gwdetail.js",
+		"/D/Python/WildBeast/runtime/commands/custom/myturn.js",
+		"/C/Users/NarakuAngel/Desktop/gamewith sort",
+		"/C/Users/NarakuAngel/Desktop/test.txt",
+		"/D/Python/WildBeast/gamewithData.json",
+		"/D/Python/WildBeast/runtime/commands/custom/nihe.js",
+		"/D/Python/WildBeast/runtime/commands/custom/gwsearch.js",
+		"/D/Python/WildBeast/gamewithData.js",
+		"/D/Python/WildBeast/runtime/commands/custom/zoba.js",
+		"/D/Python/WildBeast/runtime/commands/custom/setGame.js",
+		"/D/Projects/UnityProjects/Space Shooter Exercise/Assets/Scripts/RandomRotater.cs",
+		"/D/Projects/UnityProjects/Roll-a-Ball-Exercise/Assets/Script/Rotator.cs",
+		"/D/Projects/nekowizTW-sub/nekowizTW-stageWalkthrough-Lionfree/index.html",
+		"/D/Projects/nekowizTW-sub/nekowizTW-stageWalkthrough-Lionfree/assets/js/main.js",
+		"/D/Projects/UnityProjects/Space Shooter Exercise/Assets/RandomRotater.cs",
+		"/D/Projects/Clanguage/test.c",
+		"/C/Users/NarakuAngel/Documents/PCLink/rename.bat",
+		"/H/Need Upload/rename.bat",
+		"/D/Projects/UnityProjects/Space Shooter Exercise/Assets/Mover.cs",
+		"/C/Users/NarakuAngel/Desktop/Data Collection for nekowizTW.txt",
+		"/D/FFOutput/rename.bat",
+		"/C/Users/NarakuAngel/Documents/PCLink/rename.csv",
+		"/D/Projects/laravelLearn/blog/resources/views/cars/show.blade.php",
+		"/D/Projects/laravelLearn/blog/app/Http/Controllers/CarController.php",
+		"/D/Projects/laravelLearn/blog/routes/web.php",
+		"/D/Projects/laravelLearn/blog/app/Car.php",
+		"/D/Projects/laravelLearn/blog/database/migrations/2017_01_15_170251_create_cars_table.php",
+		"/D/Projects/laravelLearn/blog/config/app.php",
+		"/D/Projects/laravelLearn/blog/composer.json",
+		"/D/Projects/laravelLearn/blog/.env",
+		"/D/Projects/laravelLearn/blog/config/database.php",
+		"/C/Users/NarakuAngel/Documents/zerojudge/b836.c",
+		"/C/Users/NarakuAngel/Documents/zerojudge/a694.c",
+		"/C/Users/NarakuAngel/Documents/zerojudge/b836",
+		"/C/Users/NarakuAngel/Documents/zerojudge/d016.c",
+		"/C/Users/NarakuAngel/Documents/zerojudge/d190.c",
+		"/C/Users/NarakuAngel/Documents/zerojudge/a007.c",
+		"/D/Software Portable/PortableApps/Subline Text 3/Data/Packages/User/clang.sublime-build",
+		"/C/Irvine/Examples/ch08/32 bit/swap.asm",
+		"/C/Irvine/Examples/ch08/32 bit/AddTwo.asm",
+		"/C/Users/NarakuAngel/Desktop/Project32_VS2015/Projects/Integer Arithmetic/shift_rotate_demo.asm",
+		"/C/Users/NarakuAngel/Desktop/Project32_VS2015/Projects/Integer Arithmetic/mul_div_demo.asm",
+		"/C/Irvine/Examples/ch07/32 bit/ExtAdd.asm",
+		"/C/Irvine/Examples/ch07/32 bit/imul.asm",
+		"/C/Users/NarakuAngel/Desktop/Project32_VS2015/Projects/ProtoExample/Csum.asm",
+		"/C/Users/NarakuAngel/Desktop/Project32_VS2015/Projects/ProtoExample/ArryFill.asm",
+		"/C/Users/NarakuAngel/Desktop/Project32_VS2015/Projects/Integer Arithmetic/MultiShift.asm",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/User.aspx.cs",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/Restaurant.aspx.cs",
+		"/D/Projects/aspnetProject/README.md",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/Restaurant.aspx",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/Datatype.cs",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/models.cs",
+		"/D/Projects/aspnetHomework/Web1c/DrinkShop.aspx",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/assets/js/site.js",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/Evaluate.aspx",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/Evaluate.aspx.cs",
+		"/D/Projects/aspnetHomework/Web1c/Scripts/site.js",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/Default.aspx",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/Default.aspx.cs",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/User.aspx",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/Models.cs",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/Site.Master.cs",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/Site.Master",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/Default.aspx.designer.cs",
+		"/D/Ruby/paizaTester/practice.rb",
+		"/D/Software Portable/PortableApps/Subline Text 3/Data/Packages/OmniSharp/OmniSharpSublime.sublime-settings",
+		"/D/Ruby/paizaTester/testcase3.txt",
+		"/D/Ruby/paizaTester/testcase2.txt",
+		"/D/Ruby/paizaTester/testcase1.txt",
+		"/D/Ruby/paizaTester/output.txt",
+		"/D/Ruby/paizaTester/test.rb",
+		"/D/Projects/aspnetHomework/Web1c/Styles/site.css",
+		"/D/Projects/aspnetHomework/Web1c/Site.Master",
+		"/D/Projects/aspnetHomework/Web1c/DrinkShop.aspx.cs",
+		"/D/Ruby/paizaTester/test.Appraisals",
+		"/D/Projects/aspnetProject/WebApplication1/WebApplication1/assets/css/site.css",
+		"/D/Projects/aspnetHomework/Web1c/Default.aspx.cs"
+	],
+	"find":
+	{
+		"height": 72.0
+	},
+	"find_in_files":
+	{
+		"height": 164.0,
+		"where_history":
+		[
+			"D:\\Projects\\UnityProjects\\Music Rhythm Game\\Assets\\Scripts"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"(.+)\\n(No\\. \\d+)",
+			"musicController",
+			"MusicController",
+			"List",
+			"lines.Count",
+			"Notes",
+			"songData",
+			"fileData",
+			"rawline",
+			"dance-double",
+			"bpms",
+			"songData",
+			"DISPLAYBPM",
+			"songData",
+			"readonly",
+			"songSampleLength",
+			"songSampleStart",
+			"songAudioPath",
+			"songBgPath",
+			"songArtist",
+			"songList",
+			"songName",
+			"metaData",
+			"songData",
+			"next",
+			"change",
+			"stop()",
+			"play",
+			"AmbientAudio",
+			"ongAudioPath",
+			"Debug.Log",
+			"CameraController",
+			"cameraController",
+			"public",
+			"menuPos",
+			"transform.velocity",
+			"std::",
+			"int dayOfYear",
+			"!=",
+			"+",
+			"true",
+			"another",
+			"typeof",
+			">>",
+			"Array<int>",
+			"class T",
+			"class",
+			"cout",
+			"tmp.i[it]",
+			"handle_events",
+			"450",
+			"630",
+			"3",
+			"9",
+			"_x",
+			"rand_mover",
+			"v",
+			"swap",
+			"Puzzle_clip[i]",
+			"empty_num",
+			",",
+			"Puzzle_array",
+			",",
+			"Combo",
+			"'",
+			"meta",
+			"double",
+			"xPosList",
+			"3",
+			"4",
+			"ballCount",
+			"k\\(",
+			"hand",
+			"load_image",
+			"load_image_alpha",
+			"Puzzle_clip",
+			", screen)",
+			"screen)",
+			"apply_surface",
+			"load_image_alpha",
+			"load_image",
+			"scoreText",
+			"pressed",
+			"successBurst",
+			"cameraController",
+			"gameControllerObject",
+			",",
+			".rotation",
+			"new Vector3 (xPos, transform.position.y, transform.position.z - 1)",
+			"transform.",
+			"float",
+			"\t",
+			"ameraController",
+			"cameraController",
+			"gameController",
+			"count",
+			"ngles",
+			":",
+			"rd",
+			"Renderer",
+			"rd",
+			"Renderer",
+			"Red",
+			"var",
+			"object",
+			"\\n\\n",
+			"理系.*\\n",
+			"(○+.*)\\n",
+			"(。)\\n",
+			"(文系|理系|スポーツ|雑学|アニメ ゲーム|芸能)\\n((\\d色問題)|(不明問題))\\n",
+			"(文系|理系|スポーツ|雑学|アニメ ゲーム|芸能)\\n(\\d色問題)\\n",
+			"\\n\\n",
+			"\\t\\n",
+			"gwdetail",
+			"\"",
+			"\"シ.*ル\"",
+			"\"シ.ル\"",
+			"\"シ",
+			"シ",
+			"シール",
+			"シー",
+			"メ",
+			"メートル",
+			"巨人",
+			"10メートル級巨人",
+			"人",
+			"巨",
+			"巨人"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"\\2 \\1",
+			"mapController",
+			"MapController",
+			"sampleLength",
+			"sampleStart",
+			"musicPath",
+			"backgroundPath",
+			"artist",
+			"title",
+			"MetaData",
+			"metaData",
+			"\\n",
+			"\\1`",
+			"\\1 \\2 - ",
+			"\\n",
+			"",
+			"'",
+			".",
+			"\"\\1\"\\n",
+			"valuate",
+			"valulate",
+			"ViewType",
+			"ChangeVisibleState",
+			"order_session",
+			"",
+			"12-0\\1 ",
+			"-\n  title: \"AbyssCode05 冥世的天蓋\"\n  start: \"2016-\\1-\\2 \\3:00\"\n  end: \"2016-\\1-\\2 \\4:00\"\n  color: \"yellow\"\n-\n  title: \"AbyssCode05 冥世的天蓋\"\n  start: \"2016-\\1-\\2 \\6:00\"\n  end: \"2016-\\1-\\2 \\7:00\"\n  color: \"yellow\"",
+			"-\n  title: \"AbyssCode04 燃燒殆盡的陽光\"\n  start: \"2016-\\1-\\2 \\3:00\"\n  end: \"2016-\\1-\\2 \\4:00\"\n  color: \"red\"\n-\n  title: \"AbyssCode04 燃燒殆盡的陽光\"\n  start: \"2016-\\1-\\2 \\6:00\"\n  end: \"2016-\\1-\\2 \\7:00\"\n  color: \"red\"",
+			"-\n  title: \"AbyssCode03 生而墮於虛無\"\n  start: \"2016-\\1-\\2 \\3:00\"\n  end: \"2016-\\1-\\2 \\4:00\"\n  color: \"blue\"\n-\n  title: \"AbyssCode03 生而墮於虛無\"\n  start: \"2016-\\1-\\2 \\6:00\"\n  end: \"2016-\\1-\\2 \\7:00\"\n  color: \"blue\"",
+			"-\n  title: \"AbyssCode02 盲目的調和\"\n  start: \"2016-\\1-\\2 \\4:00\"\n  end: \"2016-\\1-\\2 \\5:00\"\n  color: \"yellow\"\n-\n  title: \"AbyssCode02 盲目的調和\"\n  start: \"2016-\\1-\\2 \\6:00\"\n  end: \"2016-\\1-\\2 \\7:00\"\n  color: \"yellow\"\n-\n  title: \"AbyssCode02 盲目的調和\"\n  start: \"2016-\\1-\\2 \\8:00\"\n  end: \"2016-\\1-\\2 \\9:00\"\n  color: \"yellow\"",
+			"-\n  title: \"AbyssCode01 黑殼之王\"\n  start: \"2016-\\1-\\2 \\4:00\"\n  end: \"2016-\\1-\\2 \\5:00\"\n  color: \"red\"\n-\n  title: \"AbyssCode01 黑殼之王\"\n  start: \"2016-\\1-\\2 \\6:00\"\n  end: \"2016-\\1-\\2 \\7:00\"\n  color: \"red\"\n-\n  title: \"AbyssCode01 黑殼之王\"\n  start: \"2016-\\1-\\2 \\8:00\"\n  end: \"2016-\\1-\\2 \\9:00\"\n  color: \"red\"",
+			"== \\2 ==\\n\\n\\1\\2\\3",
+			"|center|670",
+			"]]\\n\\n",
+			"",
+			"#b29a97",
+			"  ",
+			"",
+			": \"*\"",
+			"== \\2 == \\n\\n\\1\\2\\3",
+			"==",
+			"OrderDrinks_Order_Panel.Visible = false;\\nOrderDrinks_Porperty_Panel.Visible = false;",
+			"OrderDrinks_Order_Panel.Visible = true;\\nOrderDrinks_Porperty_Panel.Visible = true;",
+			"Order_New.CssClass = \"ui red button\"",
+			"11-0\\1 ",
+			"11-0\\1\\s",
+			"-\n  title: \"Tempest Blader\"\n  start: \"2016-\\1-\\2 \\3:00\"\n  end: \"2016-\\1-\\2 \\4:00\"\n  color: \"red\"\n-\n  title: \"Tempest Blader\"\n  start: \"2016-\\1-\\2 \\5:00\"\n  end: \"2016-\\1-\\2 \\6:00\"\n  color: \"red\"",
+			"-\n  title: \"Demon’s Blader\"\n  start: \"2016-\\1-\\2 \\3:00\"\n  end: \"2016-\\1-\\2 \\4:00\"\n  color: \"red\"\n-\n  title: \"Demon’s Blader\"\n  start: \"2016-\\1-\\2 \\5:00\"\n  end: \"2016-\\1-\\2 \\6:00\"\n  color: \"red\"",
+			"-\n  title: \"Divine Blader\"\n  start: \"2016-\\1-\\2 \\3:00\"\n  end: \"2016-\\1-\\2 \\4:00\"\n  color: \"yellow\"\n-\n  title: \"Divine Blader\"\n  start: \"2016-\\1-\\2 \\5:00\"\n  end: \"2016-\\1-\\2 \\6:00\"\n  color: \"yellow\"",
+			"-\n  title: \"Heretic Blader\"\n  start: \"2016-\\1-\\2 \\3:00\"\n  end: \"2016-\\1-\\2 \\4:00\"\n  color: \"blue\"\\n-\n  title: \"Heretic Blader\"\n  start: \"2016-\\1-\\2 \\5:00\"\n  end: \"2016-\\1-\\2 \\6:00\"\n  color: \"blue\"",
+			"OrderDrinks_Item_Dataset",
+			"{\\n                logger.Error(sqlE);\\n                Response",
+			"\\n                logger.Error(sqlE);\\n                Response",
+			"\\n                logger.Error(\"Error\");\\n                Response",
+			", ",
+			"\\n",
+			"@@colorList",
+			"@@matrix",
+			"/*font-weight: bolder;*/",
+			"/*font-weight: bold;*/",
+			"{ value: '\\1', label: '\\1'}",
+			"{ value: \\1, label: \\1}",
+			"{ value: \\1, label: \\1},",
+			",",
+			"{ value: \\1, label: \\1}",
+			"let",
+			"pure-u-md",
+			"this.",
+			"data_deck.card",
+			"querySourceC",
+			"data_source.card",
+			"queryParamsGap",
+			"writeJSON",
+			"cardSource",
+			"\\n",
+			"",
+			"}\\n",
+			"}",
+			"function \\1",
+			"this",
+			"dataCollec.cardDeck",
+			"dataCollec.dataSource",
+			",",
+			"\"id\": \"\\1\"",
+			"</option>\\n",
+			"\\n",
+			"\\}\\}\\n",
+			"前置：",
+			"前置",
+			":",
+			"\\n",
+			"\"\\1\"",
+			"2016-",
+			"Reactselect",
+			"Nouislider",
+			"{ \"value\": \"\\1\", \"label\": \"\\1\"}",
+			"魔族",
+			"術士",
+			"戰士",
+			"物質",
+			"亞人",
+			"\"妖精",
+			"天使",
+			"神族",
+			"龍族",
+			"雷",
+			"水",
+			"火",
+			"\\n|",
+			"},\\n\\t\"",
+			"},\\n\"",
+			"\\\":{},",
+			",\\n\\t",
+			",\\n"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Assets/Scripts/MetaData.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5981,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3586,
+								3553
+							]
+						],
+						"settings":
+						{
+							"is_init_dirty_state": false,
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1170.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Assets/Scripts/MapController.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1090,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"in_converting": true,
+							"is_init_dirty_state": false,
+							"origin_encoding": "UTF-8-SIG",
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 624.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Songs/Bad Apple!!/Bad Apple!!.sm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23974,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								323,
+								434
+							]
+						],
+						"settings":
+						{
+							"is_init_dirty_state": false,
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 5,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 546.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Scripts/MenuController.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2910,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1387,
+								1387
+							]
+						],
+						"settings":
+						{
+							"in_converting": true,
+							"is_init_dirty_state": false,
+							"origin_encoding": "UTF-8-SIG",
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 991.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Scripts/LoadingController.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 859,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								288,
+								288
+							]
+						],
+						"settings":
+						{
+							"is_init_dirty_state": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 19.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 55.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 116.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.variable_get":
+	{
+		"height": 116.0
+	},
+	"pinned_build_system": "",
+	"project": "Music Rhythm Game.sublime-project",
+	"replace":
+	{
+		"height": 118.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"inde",
+				"assets\\js\\index_embed.js"
+			],
+			[
+				"app",
+				"dist\\scripts\\app.js"
+			],
+			[
+				"",
+				"dist\\scripts\\app.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 190.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
