@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour {
 	public bool loadComplete;
+	public AudioSource nowPlaying;
 
 	private List<MetaData> metaList;
 	private int songIndex;
@@ -40,5 +41,34 @@ public class MapController : MonoBehaviour {
 		songIndex += right ? 1 : -1;
 		if(songIndex == -1) songIndex = length - 1;
 		else if(songIndex == length) songIndex = 0;
+	}
+
+	public IEnumerator playSampleAudio(float timeStart, float timeDuration){
+		string path = metaList[songIndex].musicPath;
+		int playingIndex = songIndex;
+		WWW www = new WWW("file://" + path.Replace("\\", "/"));
+		yield return www;
+		if(path.LastIndexOf(".mp3") != -1)
+			nowPlaying.clip = NAudioPlayer.FromMp3Data(www.bytes);
+		else
+			nowPlaying.clip = www.GetAudioClip(false);
+		while(playingIndex == songIndex){
+			nowPlaying.volume = 1;
+			nowPlaying.time = timeStart;
+			nowPlaying.Play();
+			while(nowPlaying.time < (timeStart + timeDuration - 1)){
+				yield return new WaitForSeconds(0.01f);
+				if(playingIndex != songIndex) break;
+			}
+			float t = nowPlaying.volume;
+			while (t > 0.0f) {
+				if(playingIndex != songIndex) break;
+				t -= 0.01f;
+				nowPlaying.volume = t;
+				yield return new WaitForSeconds(0.01f);
+			}
+			if(playingIndex != songIndex) break;
+			nowPlaying.Stop();
+		}
 	}
 }
