@@ -14,6 +14,11 @@ public struct NoteData{
 	public List<List<Notes>> bars;
 }
 
+public struct startBPM{
+	public float mapPos;
+	public float mapBPM;
+}
+
 public class MetaData{
 	public bool valid;
 	public DirectoryInfo dir;
@@ -27,7 +32,7 @@ public class MetaData{
 	public string musicPath;
 
 	public float offset;
-	public Dictionary<float, float> bpms;
+	public List<startBPM> bpms;
 
 	public float sampleStart;
 	public float sampleLength;
@@ -109,6 +114,7 @@ public class MetaData{
 						break;
 					case "BPMS":
 						string bpmStr = line.Substring(line.IndexOf(':')).Trim(':').Trim(';');
+						bpms = new List<startBPM>();
 						if(bpmStr.Length == 0){
 							this.musicPath = null;
 							this.valid = false;
@@ -116,10 +122,10 @@ public class MetaData{
 						}
 						string[] bpmStrA = bpmStr.Split(',');
 						foreach(string bpm in bpmStrA){
-							int eqPos = line.IndexOf('=');
-							float mapPos = 0.0F, mapBpm = 0.0F;
-							if(float.TryParse(bpm.Substring(0, eqPos-1), out mapPos) && float.TryParse(bpm.Substring(eqPos), out mapBpm)){
-								bpms.Add(mapPos, mapBpm);
+							int eqPos = bpm.IndexOf('=');
+							startBPM newBPM;
+							if(float.TryParse(bpm.Substring(0, eqPos-1), out newBPM.mapPos) && float.TryParse(bpm.Substring(eqPos+1), out newBPM.mapBPM)){
+								bpms.Add(newBPM);
 							}
 						}
 						break;
@@ -195,24 +201,19 @@ public class MetaData{
 		for(int i = 0; i < notes.Count; i++){
 			string line = notes[i].Trim();
 
-			if (line.StartsWith(";")) break;
+			if (line.Contains(";")) break;
 
-			if (line.EndsWith(",")){
+			if (line.Contains(",")){
 				noteData.bars.Add(bar);
 				bar = new List<Notes>();
-			} else if(line.EndsWith(":")){
+			} else if(line.Contains(":")){
 				continue;
 			} else if (line.Length <= 4) {
 				Notes note = new Notes();
-				note.left = false;
-				note.down = false;
-				note.up = false;
-				note.right = false;
-
-				if (line[0] != '0') note.left = true;
-				if (line[1] != '0') note.down = true;
-				if (line[2] != '0') note.up = true;
-				if (line[3] != '0') note.right = true;
+				note.left = (line[0] != '0');
+				note.down = (line[1] != '0');
+				note.up = (line[2] != '0');
+				note.right = (line[3] != '0');
 
 				//We then add this information to our current bar and continue until end
 				bar.Add(note);

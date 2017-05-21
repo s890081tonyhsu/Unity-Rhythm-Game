@@ -19,7 +19,7 @@ public class LoadingController : MonoBehaviour {
 	}
 
 	void Update () {
-		if(mapController.loadComplete)
+		if(mapController._loadComplete)
 			StartCoroutine (loadingEnd ());
 	}
 

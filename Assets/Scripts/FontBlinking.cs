@@ -13,7 +13,6 @@ public class FontBlinking : MonoBehaviour {
 	void Start () {
 		loadingText = GetComponent<Text>();
 		angle = 0;
-		Debug.Log("Color: " + loadingText.color);
 	}
 	
 	void FixedUpdate () {

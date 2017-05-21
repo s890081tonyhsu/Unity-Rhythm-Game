@@ -11,64 +11,98 @@ public class NoteObj{
 
 public class GameController : MonoBehaviour {
 
-	List<int> whichNote = new List<int>() {1, 2, 2, 8, 2, 4, 4, 1, 2, 1, 4, 2, 4, 4, 8, 4, 2, 4, 8, 8, 4, 2, 4, 4};
+	// List<int> whichNote = new List<int>() {1, 2, 2, 8, 2, 4, 4, 1, 2, 1, 4, 2, 4, 4, 8, 4, 2, 4, 8, 8, 4, 2, 4, 4};
 	List<int> xPosList = new List<int>() {-3, -1, 1, 3};
 
-	public int noteMark;
 	public float offset;
-	public float BPM;
+	public float disOffset;
 	public NoteObj notes;
-	public string timerReset = "y";
 	public Text scoreText;
 	public Text comboText;
 	public Image black;
 	public Animator anim;
 
+	private MapController mapController;
+	private NoteData thisStage;
+	private int waveMark;
+	private int noteCnt;
 	private int score;
 	private int hitted;
 	private int[] combo;
-	private double timer;
+
+	private bool isInit;
+	private int barCount;
+	private float arrowSpeed;
+	private float timer;
+	private float barTime;
+	private float songTimer;
+	private float timeOffset;
 
 	void Start () {
-		noteMark = 0;
+		GameObject mapControllerObject = GameObject.FindWithTag("MapController");
+		if(mapControllerObject != null)
+			mapController = mapControllerObject.GetComponent<MapController>();
+		if(mapController == null)
+			Debug.Log("Cannot find 'MapController' script");
+		thisStage = mapController.getCurrentStage();
+		waveMark = 0;
+		timer = 0;
+		timeOffset = mapController.getCurrentOffset();
+		barTime = (60.0f / mapController.getCurrentBPM(timer)) * 4.0f;
+
 		score = 0;
 		hitted = 0;
 		combo = new int[2] {0, 0};
+		noteCnt = 0;
 		updateScoreAndCombo();
+		isInit = false;
+		StartCoroutine(gameStart());
+		StartCoroutine(mapController.playAudio (offset + disOffset));
 	}
-	
-	void FixedUpdate () {
-		if (timerReset == "y") {
-			if (noteMark < whichNote.Count) {
-				StartCoroutine  (spawnNote ());
-			} else {
-				StartCoroutine (gameEnd ());
-			}
-			timerReset = "n";
+
+	void FixedUpdate() {
+		if (isInit && (waveMark < thisStage.bars.Count)) {
+            songTimer = mapController.getSongTimer();
+
+            if ((songTimer - timeOffset) >= (timer - barTime)) {
+            	Debug.Log("songTime: " + songTimer + ", timer: " + timer);
+            	StartCoroutine(spawnBar ());
+            	timer += barTime;
+            }
+        }
+	}
+
+	IEnumerator spawnBar () {
+		List<Notes> thisWave = thisStage.bars[waveMark++];
+		barTime = (60.0f / mapController.getCurrentBPM(timer - timeOffset)) * 4.0f;
+		for(int i = 0; i < thisWave.Count; i++) {
+			yield return spawnNote(thisWave[i], thisWave.Count);
 		}
 	}
 
-	IEnumerator spawnNote () {
-		yield return new WaitForSeconds (BPM / 60);
+	IEnumerator spawnNote (Notes currentBar, int count) {
 		Vector3 notePos = new Vector3 (0, transform.position.y, transform.position.z - 1);
-		if((whichNote[noteMark] & 0x8) != 0) {
+		if(currentBar.left) {
 			notePos.x = xPosList[0];
 			Instantiate (notes.leftNote, notePos, notes.leftNote.transform.rotation);
+			noteCnt++;
 		}
-		if((whichNote[noteMark] & 0x4) != 0) {
+		if(currentBar.down) {
 			notePos.x = xPosList[1];
 			Instantiate (notes.downNote, notePos, notes.downNote.transform.rotation);
+			noteCnt++;
 		}
-		if((whichNote[noteMark] & 0x2) != 0) {
+		if(currentBar.up) {
 			notePos.x = xPosList[2];
 			Instantiate (notes.upNote, notePos, notes.upNote.transform.rotation);
+			noteCnt++;
 		}
-		if((whichNote[noteMark] & 0x1) != 0) {
+		if(currentBar.right) {
 			notePos.x = xPosList[3];
 			Instantiate (notes.rightNote, notePos, notes.rightNote.transform.rotation);
+			noteCnt++;
 		}
-		noteMark += 1;
-		timerReset = "y";
+		yield return new WaitForSeconds((barTime / count) - Time.deltaTime);
 	}
 
 	public void comboSuccess() {
@@ -93,12 +127,18 @@ public class GameController : MonoBehaviour {
 			comboText.text = "";
 	}
 
+	IEnumerator gameStart(){
+		yield return new WaitForSeconds (offset);
+		Debug.Log("Game Start");
+		isInit = true;
+	}
+
 	IEnumerator gameEnd(){
 		yield return new WaitForSeconds (offset);
 		PlayerPrefs.SetInt("score", score);
 		PlayerPrefs.SetInt("maxCombo", combo[1]);
 		PlayerPrefs.SetInt("playerHitted", hitted);
-		PlayerPrefs.SetInt("totalBeats", whichNote.Count);
+		PlayerPrefs.SetInt("totalBeats", noteCnt);
 		anim.SetBool("Fade", true);
 		yield return new WaitUntil(() => black.color.a == 1);
 		SceneManager.LoadScene("ScoreBoard", LoadSceneMode.Single);
