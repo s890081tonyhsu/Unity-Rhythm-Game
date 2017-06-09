@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour {
 	List<int> xPosList = new List<int>() {-3, -1, 1, 3};
 
 	public float offset;
-	public float disOffset;
+	public float distance;
 	public NoteObj notes;
 	public Text scoreText;
 	public Text comboText;
@@ -31,9 +31,10 @@ public class GameController : MonoBehaviour {
 	private int[] combo;
 
 	private bool isInit;
+	private bool isBarEnd;
 	private int barCount;
 	private float arrowSpeed;
-	private float timer;
+	private float barExecutedTime;
 	private float barTime;
 	private float songTimer;
 	private float timeOffset;
@@ -46,9 +47,9 @@ public class GameController : MonoBehaviour {
 			Debug.Log("Cannot find 'MapController' script");
 		thisStage = mapController.getCurrentStage();
 		waveMark = 0;
-		timer = 0;
-		timeOffset = mapController.getCurrentOffset();
-		barTime = (60.0f / mapController.getCurrentBPM(timer)) * 4.0f;
+		timeOffset = distance / 10.0f;
+		barExecutedTime = 0;
+		barTime = (60.0f / mapController.getCurrentBPM(barExecutedTime)) * 4.0f;
 
 		score = 0;
 		hitted = 0;
@@ -56,28 +57,32 @@ public class GameController : MonoBehaviour {
 		noteCnt = 0;
 		updateScoreAndCombo();
 		isInit = false;
+		isBarEnd = true;
 		StartCoroutine(gameStart());
-		StartCoroutine(mapController.playAudio (offset + disOffset));
 	}
 
-	void FixedUpdate() {
+	void Update() {
 		if (isInit && (waveMark < thisStage.bars.Count)) {
             songTimer = mapController.getSongTimer();
 
-            if ((songTimer - timeOffset) >= (timer - barTime)) {
-            	Debug.Log("songTime: " + songTimer + ", timer: " + timer);
+            if ((songTimer + timeOffset) >= (barExecutedTime - barTime) && isBarEnd) {
+            	Debug.Log("songTime: " + songTimer + ", barExecutedTime: " + barExecutedTime);
             	StartCoroutine(spawnBar ());
-            	timer += barTime;
+            	barExecutedTime += barTime;
             }
         }
+        if((waveMark >= thisStage.bars.Count) && !mapController._nowPlaying.isPlaying)
+        	StartCoroutine(gameEnd ());
 	}
 
 	IEnumerator spawnBar () {
+		isBarEnd = false;
 		List<Notes> thisWave = thisStage.bars[waveMark++];
-		barTime = (60.0f / mapController.getCurrentBPM(timer - timeOffset)) * 4.0f;
+		barTime = (60.0f / mapController.getCurrentBPM(barExecutedTime)) * 4.0f;
 		for(int i = 0; i < thisWave.Count; i++) {
 			yield return spawnNote(thisWave[i], thisWave.Count);
 		}
+		isBarEnd = true;
 	}
 
 	IEnumerator spawnNote (Notes currentBar, int count) {
@@ -105,6 +110,10 @@ public class GameController : MonoBehaviour {
 		yield return new WaitForSeconds((barTime / count) - Time.deltaTime);
 	}
 
+	public float getSongTime() {
+		return songTimer;
+	}
+
 	public void comboSuccess() {
 		hitted += 1;
 		combo[0] += 1;
@@ -113,8 +122,9 @@ public class GameController : MonoBehaviour {
 		updateScoreAndCombo();
 	}
 
-	public void comboFail() {
+	public void comboFail(int name) {
 		combo[0] = 0;
+		// Debug.Log(name + "'s end time: " + songTimer);
 		updateScoreAndCombo();
 	}
 
@@ -131,6 +141,7 @@ public class GameController : MonoBehaviour {
 		yield return new WaitForSeconds (offset);
 		Debug.Log("Game Start");
 		isInit = true;
+		yield return mapController.playAudio (timeOffset);
 	}
 
 	IEnumerator gameEnd(){

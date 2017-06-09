@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScoreDisplay : MonoBehaviour {
     public Text titleText;
@@ -9,6 +10,8 @@ public class ScoreDisplay : MonoBehaviour {
     public Text maxComboText;
     public Text rankText;
     public Text percentageText;
+    public Image black;
+    public Animator anim;
 
     private string[] rankTextList = {"E", "D", "C", "B", "A-", "A+", "AA", "AAA"};
     private float[] rankCompare = {0.5f, 0.55f, 0.6f, 0.7f, 0.85f, 0.95f, 1.0f};
@@ -30,6 +33,10 @@ public class ScoreDisplay : MonoBehaviour {
         }
     }
 
+    void FixedUpdate() {
+        if(Input.GetKeyDown(KeyCode.Return)) StartCoroutine(enterMenu());
+    }
+
     int getRank(float percent) {
         int rankNum = 0;
         for(int i = 0; i < rankCompare.Length; i++){
@@ -40,5 +47,12 @@ public class ScoreDisplay : MonoBehaviour {
 
     void Update () {
         
+    }
+
+    IEnumerator enterMenu(){
+        yield return new WaitForSeconds (1);
+        anim.SetBool("Fade", true);
+        yield return new WaitUntil(() => black.color.a == 1);
+        SceneManager.LoadScene("GameMenu", LoadSceneMode.Single);
     }
 }

@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"is",
+				"isBarEnd\tbool"
+			],
+			[
+				"Wa",
+				"WaitForSeconds\tWaitForSeconds"
+			],
+			[
+				"Get",
+				"GetInstanceID()\tint"
+			],
+			[
 				"Wait",
 				"WaitForSeconds\tWaitForSeconds"
 			],
@@ -14,10 +26,6 @@
 			[
 				"this",
 				"thisWave\tint"
-			],
-			[
-				"is",
-				"isInit\tbool"
 			],
 			[
 				"game",
@@ -238,10 +246,6 @@
 			[
 				"Insta",
 				"Instantiate<T>(T original)\tT"
-			],
-			[
-				"Get",
-				"GetComponent<T>()\tT"
 			],
 			[
 				"pr",
@@ -510,69 +514,84 @@
 			[
 				"fi",
 				"field"
-			],
-			[
-				"order",
-				"orderdrink_drink_id\tDropDownList"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"contents": "using System.IO;\nusing System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\n\npublic class MapController : MonoBehaviour {\n\tpublic bool _loadComplete;\n\tpublic AudioSource _nowPlaying;\n\tpublic bool _isStarted;\n\n\tprivate List<MetaData> metaList;\n\tprivate int songIndex;\n\tprivate List<int> difficulties;\n\tprivate int difficultyIndex;\n\tprivate List<startBPM> startBPMs;\n\tprivate int nextBPMIndex;\n\n\tvoid Start () {\n\t\tDontDestroyOnLoad(this);\n\t\t_loadComplete = false;\n\t\tmetaList = new List<MetaData>();\n\t\tDirectoryInfo baseDir = new DirectoryInfo(\"Songs\");\n\t\tDirectoryInfo[] dirArray = baseDir.GetDirectories();\n\t\tforeach (DirectoryInfo subDir in dirArray) {\n\t\t\tFileInfo[] smFiles = subDir.GetFiles(\"*.sm\");\n\t\t\tif(smFiles.Length == 1) {\n\t\t\t\tMetaData newSong = new MetaData(subDir, smFiles[0].FullName);\n\t\t\t\tmetaList.Add(newSong);\n\t\t\t}\n\t\t}\n\t\t_loadComplete = true;\n\t\t_isStarted = false;\n\t\tsongIndex = 0;\n\t\tdifficulties = new List<int>();\n\t\tstartBPMs = metaList[songIndex].bpms;\n\t\tnextBPMIndex = (startBPMs.Count > 1) ? 1 : 0;\n\t\tsetDifficulties(metaList[songIndex]);\n\t}\n\n\tvoid setDifficulties(MetaData map) {\n\t\tdifficulties.Clear();\n\t\tif(map.beginnerExists) difficulties.Add(0);\n\t\tif(map.easyExists) difficulties.Add(1);\n\t\tif(map.beginnerExists) difficulties.Add(2);\n\t\tif(map.hardExists) difficulties.Add(3);\n\t\tif(map.challengeExists) difficulties.Add(4);\n\t\tdifficultyIndex = 0;\n\t}\n\n\tpublic List<MetaData> getSongList() {\n\t\treturn metaList;\n\t}\n\n\tpublic List<int> getDifficultyList() {\n\t\treturn difficulties;\n\t}\n\n\tpublic MetaData getCurrentSong() {\n\t\treturn metaList[songIndex];\n\t}\n\n\tpublic int getCurrentDifficulty() {\n\t\treturn difficulties[difficultyIndex];\n\t}\n\n\tpublic NoteData getCurrentStage() {\n\t\tswitch(difficulties[difficultyIndex]) {\n\t\t\tcase 0:\n\t\t\t\treturn metaList[songIndex].beginner;\n\t\t\tcase 1:\n\t\t\t\treturn metaList[songIndex].easy;\n\t\t\tcase 2:\n\t\t\t\treturn metaList[songIndex].medium;\n\t\t\tcase 3:\n\t\t\t\treturn metaList[songIndex].hard;\n\t\t\tcase 4:\n\t\t\t\treturn metaList[songIndex].challenge;\n\t\t\tdefault:\n\t\t\t\treturn new NoteData();\n\t\t}\n\t}\n\n\tpublic float getCurrentBPM(float gamePos) {\n\t\tif(startBPMs.Count == 1) return startBPMs[0].mapBPM;\n\t\tif(startBPMs[nextBPMIndex].mapPos <= gamePos)\n\t\t\tnextBPMIndex += 1;\n\t\treturn startBPMs[nextBPMIndex - 1].mapBPM;\n\t}\n\n\tpublic float getCurrentOffset() {\n\t\treturn metaList[songIndex].offset;\n\t}\n\n\tpublic void shiftSong(bool right) {\n\t\tint length = metaList.Count;\n\t\tsongIndex += right ? 1 : -1;\n\t\tif(songIndex == -1) songIndex = length - 1;\n\t\telse if(songIndex == length) songIndex = 0;\n\t\tstartBPMs = metaList[songIndex].bpms;\n\t\tsetDifficulties(metaList[songIndex]);\n\t}\n\n\tpublic void shiftDifficulties(bool down) {\n\t\tint length = difficulties.Count;\n\t\tdifficultyIndex += down ? 1 : -1;\n\t\tif(difficultyIndex == -1) difficultyIndex = length - 1;\n\t\telse if(difficultyIndex == length) difficultyIndex = 0;\n\t}\n\n\tpublic float getSongTimer() {\n\t\treturn _nowPlaying.time;\n\t}\n\n\tpublic IEnumerator playSampleAudio() {\n\t\tstring path = metaList[songIndex].musicPath;\n\t\tfloat timeStart = metaList[songIndex].sampleStart;\n\t\tfloat timeDuration = metaList[songIndex].sampleLength;\n\t\tint playingIndex = songIndex;\n\t\tWWW www = new WWW(\"file://\" + path.Replace(\"\\\\\", \"/\"));\n\t\tyield return www;\n\t\t_nowPlaying.clip = (path.LastIndexOf(\".mp3\") != -1) ? NAudioPlayer.FromMp3Data(www.bytes) : www.GetAudioClip(false);\n\t\twhile(playingIndex == songIndex) {\n\t\t\t_nowPlaying.volume = 1;\n\t\t\t_nowPlaying.time = timeStart;\n\t\t\t_nowPlaying.Play();\n\t\t\twhile(_nowPlaying.time < (timeStart + timeDuration - 1)) {\n\t\t\t\tyield return new WaitForSeconds(0.01f);\n\t\t\t\tif(playingIndex != songIndex) break;\n\t\t\t}\n\t\t\tfloat t = _nowPlaying.volume;\n\t\t\twhile (t > 0.0f) {\n\t\t\t\tif(playingIndex != songIndex) break;\n\t\t\t\tt -= 0.01f;\n\t\t\t\t_nowPlaying.volume = t;\n\t\t\t\tyield return new WaitForSeconds(0.01f);\n\t\t\t}\n\t\t\tif(playingIndex != songIndex) break;\n\t\t\t_nowPlaying.Stop();\n\t\t}\n\t}\n\n\tpublic IEnumerator playAudio(float offset) {\n\t\t_isStarted = true;\n\t\tyield return new WaitForSeconds(offset);\n\t\t_nowPlaying.Play();\n\t\tDebug.Log(\"playing The audio\");\n\t}\n}\n",
-			"file": "Assets/Scripts/MapController.cs",
-			"file_size": 4198,
-			"file_write_time": 131398542755389808,
+			"contents": "#TITLE:Little Busters! ~TV animation ver.~;\n#SUBTITLE:リトルバスターズ! OP;\n#ARTIST:Rita;\n#TITLETRANSLIT:;\n#SUBTITLETRANSLIT:;\n#ARTISTTRANSLIT:;\n#CREDIT:;\n#BANNER:banner.jpg;\n#BACKGROUND:bg.jpg;\n#LYRICSPATH:;\n#CDTITLE:cdtitle.png;\n#MUSIC:op.mp3;\n#OFFSET:0.133;\n#SAMPLESTART:51.460;\n#SAMPLELENGTH:24.000;\n#SELECTABLE:YES;\n#BPMS:0.000=151.000;\n#STOPS:219.500=0.099\n,220.250=0.099\n;\n#BGCHANGES:0.250=op.avi=1.000=0=0=1,\n99999=-nosongbg-=1.000=0=0=0 // don't automatically add -songbackground-\n;\n\n//---------------dance-single - ----------------\n#NOTES:\n     dance-single:\n     :\n     Hard:\n     11:\n     1.000,1.000,1.000,1.000,0.359:  // measure 1\n0000\n0000\n0000\n0000\n0001\n1000\n0100\n0000\n,  // measure 2\n0000\n0000\n1000\n0001\n0010\n0100\n0000\n0010\n,  // measure 3\n0000\n1000\n0000\n0001\n0010\n1000\n0100\n0001\n,  // measure 4\n0000\n0000\n0001\n0100\n0010\n1000\n0100\n0010\n,  // measure 5\n1000\n0000\n0001\n0000\n0000\n0000\n0100\n1000\n0011\n0000\n1000\n0000\n0110\n0000\n0001\n0000\n,  // measure 6\n1010\n0000\n0100\n0000\n0101\n0000\n1000\n0000\n1001\n0000\n0010\n0000\n1010\n0000\n0100\n0010\n,  // measure 7\n1001\n0100\n0010\n0000\n0101\n0010\n1100\n0000\n0011\n0000\n0100\n0000\n1010\n0000\n0001\n1000\n,  // measure 8\n0110\n0000\n0000\n0000\n0000\n0000\n1000\n0000\n0000\n0000\n0000\n0000\n1010\n0000\n0000\n0000\n0000\n0000\n0001\n0000\n0000\n0000\n0000\n0000\n1100\n0000\n0010\n0000\n0001\n0000\n0010\n0000\n0000\n1000\n0000\n0000\n0101\n0000\n0000\n0000\n0000\n0000\n1010\n0000\n0000\n0000\n0000\n0000\n,  // measure 9\n0001\n0010\n1100\n0000\n0000\n0000\n0010\n1000\n0200\n0000\n0010\n0000\n1001\n0000\n0001\n0000\n,  // measure 10\n0010\n1000\n0011\n0010\n1000\n0001\n1010\n1000\n,  // measure 11\n0302\n0003\n0020\n0000\n0101\n0030\n2000\n0100\n0010\n0000\n0001\n0000\n0110\n0000\n0100\n0000\n,  // measure 12\n0001\n3000\n0020\n0000\n1001\n0030\n0200\n0000\n1000\n0300\n0002\n0000\n0110\n0003\n2000\n0000\n,  // measure 13\n0100\n3010\n0002\n0003\n1020\n0000\n0130\n1000\n0002\n0000\n0010\n0000\n1100\n0000\n0100\n0000\n,  // measure 14\n0010\n0000\n1000\n0000\n0110\n0000\n0010\n0000\n1000\n0000\n0100\n0000\n1010\n0000\n1000\n0003\n,  // measure 15\n0020\n0000\n0100\n0000\n1001\n0000\n0100\n0031\n0200\n0000\n0000\n0000\n0011\n0300\n2000\n0000\n,  // measure 16\n0010\n0001\n0011\n0000\n0001\n0010\n0011\n0100\n,  // measure 17\n0010\n0100\n0001\n0010\n0101\n3000\n0000\n0000\n0101\n0000\n2000\n3000\n0021\n0030\n0200\n0000\n,  // measure 18\n1010\n0000\n0001\n0300\n1002\n0003\n0020\n0030\n2001\n3000\n0200\n0000\n1010\n0300\n0002\n0003\n,  // measure 19\n2100\n3000\n0020\n0000\n1001\n0030\n0200\n0300\n0012\n0000\n0100\n0003\n2001\n3000\n0020\n0030\n,  // measure 20\n1200\n0300\n0002\n0000\n0110\n0003\n2000\n0000\n0101\n3000\n0020\n0000\n1001\n0000\n0100\n0030\n,  // measure 21\n0101\n0000\n0010\n0000\n0110\n0000\n1001\n0000\n0210\n0300\n2000\n3000\n0102\n0003\n2000\n0000\n,  // measure 22\n0011\n0000\n0100\n3000\n1020\n0030\n0002\n0003\n1200\n0300\n0020\n0000\n0101\n0030\n0200\n0300\n,  // measure 23\n0012\n0003\n2000\n0000\n0101\n3000\n0020\n0030\n1002\n0000\n0010\n0003\n2010\n3000\n0200\n0300\n,  // measure 24\n0021\n0030\n2000\n0000\n0011\n3000\n0200\n0000\n1001\n0300\n0020\n0000\n1100\n0000\n0001\n0030\n,  // measure 25\n0101\n0000\n0010\n0000\n0102\n0000\n0010\n0003\n2100\n0000\n0000\n0000\n0011\n0000\n0000\n0000\n,  // measure 26\n0110\n0000\n0000\n0000\n0011\n0000\n0000\n0000\n0001\n0000\n0000\n0000\n0200\n0000\n0300\n0000\n0002\n0000\n3003\n0000\n0020\n0000\n0030\n0000\n0200\n0000\n0300\n0000\n0002\n0003\n0000\n0000\n,  // measure 27\n2000\n3000\n0020\n0000\n1100\n0030\n0002\n1000\n0110\n0000\n0000\n0000\n1100\n0000\n0000\n0000\n,  // measure 28\n1010\n0000\n0110\n0000\n1000\n0000\n1100\n0003\n0020\n0030\n2000\n3000\n0012\n0003\n0200\n0300\n,  // measure 29\n0002\n0103\n0020\n1000\n0100\n0001\n1000\n0030\n0102\n0000\n0010\n0000\n1000\n0000\n0100\n0000\n,  // measure 30\n0010\n0000\n0100\n0003\n1000\n0000\n0002\n0000\n0010\n0000\n0100\n0003\n2000\n0000\n0010\n0000\n,  // measure 31\n0100\n0000\n0001\n0000\n0010\n3000\n0200\n0310\n0002\n0000\n0013\n0200\n1000\n0300\n0020\n0030\n,  // measure 32\n2000\n0000\n0000\n0000\n3100\n0000\n0002\n0000\n0013\n0000\n0000\n0000\n0200\n0300\n0020\n0030\n0002\n0000\n0003\n0000\n0200\n0000\n0000\n0000\n0001\n0000\n0300\n0000\n2000\n0100\n0010\n0001\n,  // measure 33\n0100\n0010\n0001\n0100\n0010\n0001\n0100\n0010\n0101\n0000\n3000\n0000\n0001\n0000\n0000\n0000\n0020\n0000\n0030\n0000\n0002\n0000\n0000\n0000\n1100\n0000\n0003\n0000\n0020\n0000\n0030\n0000\n,  // measure 34\n2000\n0000\n0001\n3000\n0210\n0300\n0002\n0100\n1000\n0003\n0020\n0030\n0201\n0000\n0010\n0300\n,  // measure 35\n2000\n3000\n0002\n0000\n1010\n0003\n0200\n0300\n0020\n0000\n1000\n0030\n0102\n0003\n2000\n0000\n,  // measure 36\n0010\n3000\n0200\n0300\n1002\n0003\n0020\n0030\n2000\n0000\n0001\n3000\n0120\n0001\n1000\n0100\n,  // measure 37\n0001\n0000\n0100\n0000\n1001\n0000\n0100\n0000\n0031\n0000\n0200\n0300\n0012\n0003\n2000\n3000\n,  // measure 38\n0020\n0030\n0200\n0000\n1001\n0000\n0010\n1300\n0002\n0000\n0100\n0000\n1010\n0003\n0200\n0300\n,  // measure 39\n2000\n0000\n0010\n0000\n0101\n3000\n1000\n0000\n0200\n0300\n0002\n0103\n1020\n0030\n0200\n0300\n,  // measure 40\n2000\n0000\n0001\n3000\n0210\n0300\n0002\n0000\n0100\n0010\n1000\n0003\n0110\n0000\n0002\n0013\n,  // measure 41\n0200\n0000\n1300\n0002\n0110\n0003\n2000\n3000\n0200\n0000\n0001\n0300\n1020\n0030\n0002\n0000\n,  // measure 42\n0010\n0003\n2000\n3000\n0120\n0000\n1000\n0130\n0002\n0003\n0200\n0000\n1001\n0300\n0020\n0030\n,  // measure 43\n2000\n0000\n0010\n3000\n0102\n0003\n0200\n0000\n0010\n0300\n2000\n3000\n0120\n0000\n0001\n0030\n,  // measure 44\n0200\n0000\n0010\n0300\n1002\n0010\n0100\n1000\n0010\n0000\n1000\n0000\n1010\n0000\n0100\n0000\n,  // measure 45\n1000\n0003\n0020\n0030\n2001\n3000\n0200\n0300\n0002\n0003\n0020\n0000\n0100\n0000\n1000\n0031\n,  // measure 46\n0200\n0000\n0001\n0000\n1010\n0300\n0002\n0003\n2000\n0000\n0100\n3000\n0021\n0030\n0200\n0000\n,  // measure 47\n0010\n0300\n0002\n1003\n0120\n0030\n2000\n3000\n0200\n0000\n0010\n0300\n1002\n0003\n0020\n0000\n,  // measure 48\n1000\n0100\n0001\n0100\n0001\n1130\n0011\n0000\n0200\n0000\n0310\n0002\n1100\n0003\n0020\n0030\n,  // measure 49\n2001\n0000\n0000\n0000\n3010\n0000\n0200\n0000\n1001\n0000\n0300\n0000\n0020\n0030\n0002\n0003\n2100\n0000\n0000\n0000\n3001\n0000\n0200\n0000\n1010\n0000\n0300\n0000\n0002\n0000\n0000\n0000\n,  // measure 50\n0110\n0000\n1000\n0100\n1013\n0000\n0001\n0100\n2010\n0000\n3100\n0020\n1001\n0030\n0200\n0300\n,  // measure 51\n0012\n0000\n1003\n0020\n0101\n0030\n2000\n3000\n0200\n0000\n1000\n0000\n0001\n1000\n0310\n0000\n,  // measure 52\n0020\n0000\n0100\n0000\n1000\n0100\n0031\n0000\n0002\n0000\n1000\n0000\n1100\n0000\n0010\n0000\n,  // measure 53\n1000\n0100\n0110\n1000\n0100\n0010\n1010\n0100\n,  // measure 54\n0010\n0000\n1000\n0000\n1100\n0000\n0010\n0100\n1000\n0000\n0100\n0000\n0110\n0000\n1000\n0000\n,  // measure 55\n0100\n0000\n0003\n0000\n0010\n0000\n0000\n0000\n1001\n0000\n0000\n0000\n0100\n0000\n0000\n0000\n1000\n0100\n0010\n0001\n0100\n0000\n1000\n0000\n0100\n0000\n0000\n0000\n01M1\n0000\n0000\n0000\n,  // measure 56\n0000\n1M10\n0000\n0000\n2MM2\n0000\n0000\n0000\n0000\n0000\n0000\n0000\n0000\n0000\n0000\n0000\n,  // measure 57\n0000\n3003\n0000\n0000\n0000\n0000\n0000\n0000\n;\n",
+			"file": "Songs/[CMC-008]Little Busters! ~TV animation ver.~/Little Busters! ~TV animation ver.~.sm",
+			"file_size": 7451,
+			"file_write_time": 129946107960000000,
 			"settings":
 			{
-				"buffer_size": 4047,
-				"encoding": "UTF-8 with BOM",
+				"buffer_size": 6384,
 				"line_ending": "Windows",
 				"scratch": true
 			}
 		},
 		{
-			"file": "Assets/Scripts/MetaData.cs",
+			"contents": "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\n\npublic class NoteController : MonoBehaviour {\n\tpublic float speed;\n\tpublic AudioClip impact;\n\n\tpublic GameObject successBurst;\n\n\tprivate Rigidbody rb;\n\tprivate AudioSource audioS;\n\tprivate GameController gameController;\n\n\tvoid Start ()\n\t{\n\t\trb = GetComponent<Rigidbody>();\n\t\trb.velocity = new Vector3(0, 0, speed);\n\t\taudioS = GetComponent<AudioSource>();\n        GameObject gameControllerObject = GameObject.FindWithTag(\"GameController\");\n        if(gameControllerObject != null)\n            gameController = gameControllerObject.GetComponent<GameController>();\n        if(gameController == null)\n            Debug.Log(\"Cannot find 'GameController' script\");\n        Debug.Log(GetInstanceID() + \"'s start time: \" + gameController.getSongTime());\n\t}\n\n\tvoid OnTriggerEnter (Collider other) {\n\t\tswitch(other.gameObject.tag){\n\t\t\tcase \"FailCollector\":\n\t\t\t\taudioS.PlayOneShot(impact, 0.7F);\n\t\t\t\tDebug.Log(\"Failed!\");\n\t\t\t\tgameController.comboFail(GetInstanceID());\n\t\t\t\tDestroy(rb.gameObject);\n\t\t\t\tbreak;\n\t\t\tcase \"SuccessTrigger\":\n\t\t\t\taudioS.PlayOneShot(impact, 0.7F);\n\t\t\t\tDebug.Log(\"Success!\");\n\t\t\t\tGameObject burst = Instantiate(successBurst, transform.position, successBurst.transform.rotation);\n\t\t\t\tgameController.comboSuccess();\n\t\t\t\tDestroy(rb.gameObject);\n\t\t\t\tDestroy (burst, 1);\n\t\t\t\tbreak;\n\t\t\tdefault:\n\t\t\t  break;\n\t\t}\n\t}\n}\n",
+			"file": "Assets/Scripts/NoteController.cs",
+			"file_size": 1405,
+			"file_write_time": 131404446951263522,
 			"settings":
 			{
-				"buffer_size": 5939,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "using System;\nusing System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing UnityEngine.UI;\nusing UnityEngine.SceneManagement;\n\npublic class MenuController : MonoBehaviour {\n\tpublic Text MetaDataName;\n\tpublic Text MetaDataArtist;\n\tpublic RawImage BannerBG;\n\tpublic Image difficultySelector;\n\tpublic Image black;\n\tpublic Animator anim;\n\n\tprivate MapController mapController;\n\tprivate ShowDifficulty showDifficulty;\n\tprivate string nowPlayingPath;\n\tprivate bool holdKey;\n\tprivate float MaxVol;\n\n\tvoid Start () {\n\t\tGameObject mapControllerObject = GameObject.FindWithTag(\"MapController\");\n\t\tif(mapControllerObject != null)\n\t\t\tmapController = mapControllerObject.GetComponent<MapController>();\n\t\tif(mapController == null)\n\t\t\tDebug.Log(\"Cannot find 'MapController' script\");\n\t\tshowDifficulty = difficultySelector.GetComponent<ShowDifficulty>();\n\t\tholdKey = false;\n\t\tloadSong();\n\t}\n\t\n\tvoid FixedUpdate () {\n\t\tfloat changeSong = Input.GetAxis(\"Horizontal\");\n\t\tfloat changeDifficulty = Input.GetAxis(\"Vertical\");\n\t\tif(changeSong != 0 && !holdKey) StartCoroutine(shiftSong(changeSong > 0));\n\t\tif(changeDifficulty != 0 && !holdKey) StartCoroutine(shiftDifficulty(changeDifficulty < 0));\n\t\tif(Input.GetKeyDown(KeyCode.Return)) StartCoroutine(enterGame());\n\t}\n\n\tIEnumerator shiftSong(bool right){\n\t\tholdKey = true;\n\t\tmapController.shiftSong(right);\n\t\tloadSong();\n\t\tyield return new WaitForSeconds(.3f);\n\t\tholdKey = false;\n\t}\n\n\tIEnumerator shiftDifficulty(bool down){\n\t\tholdKey = true;\n\t\tmapController.shiftDifficulties(down);\n\t\tsetDifficultyShow();\n\t\tyield return new WaitForSeconds(.3f);\n\t\tholdKey = false;\n\t}\n\n\tvoid loadSong(){\n\t\ttry{\n\t\t\tif (!mapController._nowPlaying.isPlaying) mapController._nowPlaying.Stop();\n\t\t\tMetaData current = mapController.getCurrentSong();\n\t\t\tMetaDataName.text = current.title;\n\t\t\tMetaDataArtist.text = current.artist;\n\t\t\tshowDifficulty.SetDifficulty(current);\n\t\t\tsetDifficultyShow();\n\t\t\tif(current.musicPath != \"\")\n\t\t\t\tStartCoroutine (mapController.playSampleAudio());\n\t\t\tStartCoroutine (loadBg(current.bannerPath));\n\t\t}catch(Exception e){\n\t\t\tMetaDataName.text = \"No songs are loaded.\";\n\t\t\tDebug.Log(e);\n\t\t}\n\t}\n\n\tvoid setDifficultyShow(){\n\t\tshowDifficulty.SetSelectorPosition(mapController.getCurrentDifficulty());\n\t}\n\n\tIEnumerator loadBg(string path){\n\t\tColor imageShow = BannerBG.color;\n\t\tif(path == \"\"){\n\t\t\timageShow.a = 0;\n\t\t\tBannerBG.color = imageShow;\n\t\t}else{\n\t\t\tBannerBG.color = imageShow;\n\t\t\tTexture2D tex;\n\t\t\ttex = new Texture2D(4, 4, TextureFormat.DXT5, false);\n\t\t\tWWW www = new WWW(\"file://\" + path.Replace(\"\\\\\", \"/\"));\n\t\t\tyield return www;\n\t\t\twww.LoadImageIntoTexture(tex);\n\t\t\tBannerBG.texture = tex;\n\t\t\timageShow.a = 1;\n\t\t\tBannerBG.color = imageShow;\n\t\t}\n\t}\n\tIEnumerator enterGame(){\n\t\tmapController._nowPlaying.Stop();\n\t\tmapController._nowPlaying.time = 0;\n\t\tyield return new WaitForSeconds (1);\n\t\tanim.SetBool(\"Fade\", true);\n\t\tyield return new WaitUntil(() => black.color.a == 1);\n\t\tSceneManager.LoadScene(\"GameBase\", LoadSceneMode.Single);\n\t}\n}\n",
-			"file": "Assets/Scripts/MenuController.cs",
-			"file_size": 3110,
-			"file_write_time": 131398254245406997,
-			"settings":
-			{
-				"buffer_size": 3004,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows",
-				"scratch": true
-			}
-		},
-		{
-			"contents": "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing UnityEngine.UI;\nusing UnityEngine.SceneManagement;\n\n[System.Serializable]\npublic class NoteObj{\n\tpublic GameObject leftNote, downNote, upNote, rightNote;\n}\n\npublic class GameController : MonoBehaviour {\n\n\t// List<int> whichNote = new List<int>() {1, 2, 2, 8, 2, 4, 4, 1, 2, 1, 4, 2, 4, 4, 8, 4, 2, 4, 8, 8, 4, 2, 4, 4};\n\tList<int> xPosList = new List<int>() {-3, -1, 1, 3};\n\n\tpublic float offset;\n\tpublic float disOffset;\n\tpublic NoteObj notes;\n\tpublic Text scoreText;\n\tpublic Text comboText;\n\tpublic Image black;\n\tpublic Animator anim;\n\n\tprivate MapController mapController;\n\tprivate NoteData thisStage;\n\tprivate int waveMark;\n\tprivate int noteCnt;\n\tprivate int score;\n\tprivate int hitted;\n\tprivate int[] combo;\n\n\tprivate bool isInit;\n\tprivate int barCount;\n\tprivate float arrowSpeed;\n\tprivate float timer;\n\tprivate float barTime;\n\tprivate float songTimer;\n\tprivate float timeOffset;\n\n\tvoid Start () {\n\t\tGameObject mapControllerObject = GameObject.FindWithTag(\"MapController\");\n\t\tif(mapControllerObject != null)\n\t\t\tmapController = mapControllerObject.GetComponent<MapController>();\n\t\tif(mapController == null)\n\t\t\tDebug.Log(\"Cannot find 'MapController' script\");\n\t\tthisStage = mapController.getCurrentStage();\n\t\twaveMark = 0;\n\t\ttimer = 0;\n\t\ttimeOffset = mapController.getCurrentOffset();\n\t\tbarTime = (60.0f / mapController.getCurrentBPM(timer)) * 4.0f;\n\n\t\tscore = 0;\n\t\thitted = 0;\n\t\tcombo = new int[2] {0, 0};\n\t\tnoteCnt = 0;\n\t\tupdateScoreAndCombo();\n\t\tisInit = false;\n\t\tStartCoroutine(gameStart());\n\t\tStartCoroutine(mapController.playAudio (offset + disOffset));\n\t}\n\n\tvoid FixedUpdate() {\n\t\tif (isInit && (waveMark < thisStage.bars.Count)) {\n            songTimer = mapController.getSongTimer();\n\n            if ((songTimer - timeOffset) >= (timer - barTime)) {\n            \tDebug.Log(\"songTime: \" + songTimer + \", timer: \" + timer);\n            \tStartCoroutine(spawnBar ());\n            \ttimer += barTime;\n            }\n        }\n\t}\n\n\tIEnumerator spawnBar () {\n\t\tList<Notes> thisWave = thisStage.bars[waveMark++];\n\t\tbarTime = (60.0f / mapController.getCurrentBPM(timer - timeOffset)) * 4.0f;\n\t\tfor(int i = 0; i < thisWave.Count; i++) {\n\t\t\tyield return spawnNote(thisWave[i], thisWave.Count);\n\t\t}\n\t}\n\n\tIEnumerator spawnNote (Notes currentBar, int count) {\n\t\tVector3 notePos = new Vector3 (0, transform.position.y, transform.position.z - 1);\n\t\tif(currentBar.left) {\n\t\t\tnotePos.x = xPosList[0];\n\t\t\tInstantiate (notes.leftNote, notePos, notes.leftNote.transform.rotation);\n\t\t\tnoteCnt++;\n\t\t}\n\t\tif(currentBar.down) {\n\t\t\tnotePos.x = xPosList[1];\n\t\t\tInstantiate (notes.downNote, notePos, notes.downNote.transform.rotation);\n\t\t\tnoteCnt++;\n\t\t}\n\t\tif(currentBar.up) {\n\t\t\tnotePos.x = xPosList[2];\n\t\t\tInstantiate (notes.upNote, notePos, notes.upNote.transform.rotation);\n\t\t\tnoteCnt++;\n\t\t}\n\t\tif(currentBar.right) {\n\t\t\tnotePos.x = xPosList[3];\n\t\t\tInstantiate (notes.rightNote, notePos, notes.rightNote.transform.rotation);\n\t\t\tnoteCnt++;\n\t\t}\n\t\tyield return new WaitForSeconds((barTime / count) - Time.deltaTime);\n\t}\n\n\tpublic void comboSuccess() {\n\t\thitted += 1;\n\t\tcombo[0] += 1;\n\t\tif(combo[0] > combo[1]) combo[1] = combo[0];\n\t\tscore += 10 * combo[0];\n\t\tupdateScoreAndCombo();\n\t}\n\n\tpublic void comboFail() {\n\t\tcombo[0] = 0;\n\t\tupdateScoreAndCombo();\n\t}\n\n\tvoid updateScoreAndCombo() {\n\t\tstring scoreStr = score.ToString();\n\t\tscoreText.text = \"Score: \\n\" + scoreStr.PadLeft(8, '0');\n\t\tif(combo[0] > 1)\n\t\t\tcomboText.text = \"x\" + combo[0];\n\t\telse\n\t\t\tcomboText.text = \"\";\n\t}\n\n\tIEnumerator gameStart(){\n\t\tyield return new WaitForSeconds (offset);\n\t\tDebug.Log(\"Game Start\");\n\t\tisInit = true;\n\t}\n\n\tIEnumerator gameEnd(){\n\t\tyield return new WaitForSeconds (offset);\n\t\tPlayerPrefs.SetInt(\"score\", score);\n\t\tPlayerPrefs.SetInt(\"maxCombo\", combo[1]);\n\t\tPlayerPrefs.SetInt(\"playerHitted\", hitted);\n\t\tPlayerPrefs.SetInt(\"totalBeats\", noteCnt);\n\t\tanim.SetBool(\"Fade\", true);\n\t\tyield return new WaitUntil(() => black.color.a == 1);\n\t\tSceneManager.LoadScene(\"ScoreBoard\", LoadSceneMode.Single);\n\t}\n}\n",
-			"file": "Assets/Scripts/GameController.cs",
-			"file_size": 4054,
-			"file_write_time": 131398608404583808,
-			"settings":
-			{
-				"buffer_size": 4051,
-				"encoding": "UTF-8 with BOM",
+				"buffer_size": 1402,
 				"line_ending": "Unix",
 				"scratch": true
 			}
 		},
 		{
-			"file": "Songs/[CMC-008]Little Busters! ~TV animation ver.~/Little Busters! ~TV animation ver.~.sm",
+			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 6384,
+				"buffer_size": 3415,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Shader/SpriteGradient.shader",
+			"settings":
+			{
+				"buffer_size": 1696,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Projects/UnityProjects/Pool-Homework/Assets/Script/GlobalBallEffects.cs",
+			"settings":
+			{
+				"buffer_size": 267,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing UnityEngine.UI;\nusing UnityEngine.SceneManagement;\n\n[System.Serializable]\npublic class NoteObj{\n\tpublic GameObject leftNote, downNote, upNote, rightNote;\n}\n\npublic class GameController : MonoBehaviour {\n\n\t// List<int> whichNote = new List<int>() {1, 2, 2, 8, 2, 4, 4, 1, 2, 1, 4, 2, 4, 4, 8, 4, 2, 4, 8, 8, 4, 2, 4, 4};\n\tList<int> xPosList = new List<int>() {-3, -1, 1, 3};\n\n\tpublic float offset;\n\tpublic float distance;\n\tpublic NoteObj notes;\n\tpublic Text scoreText;\n\tpublic Text comboText;\n\tpublic Image black;\n\tpublic Animator anim;\n\n\tprivate MapController mapController;\n\tprivate NoteData thisStage;\n\tprivate int waveMark;\n\tprivate int noteCnt;\n\tprivate int score;\n\tprivate int hitted;\n\tprivate int[] combo;\n\n\tprivate bool isInit;\n\tprivate bool isBarEnd;\n\tprivate int barCount;\n\tprivate float arrowSpeed;\n\tprivate float barExecutedTime;\n\tprivate float barTime;\n\tprivate float songTimer;\n\tprivate float timeOffset;\n\n\tvoid Start () {\n\t\tGameObject mapControllerObject = GameObject.FindWithTag(\"MapController\");\n\t\tif(mapControllerObject != null)\n\t\t\tmapController = mapControllerObject.GetComponent<MapController>();\n\t\tif(mapController == null)\n\t\t\tDebug.Log(\"Cannot find 'MapController' script\");\n\t\tthisStage = mapController.getCurrentStage();\n\t\twaveMark = 0;\n\t\ttimeOffset = distance / 10.0f;\n\t\tbarExecutedTime = 0;\n\t\tbarTime = (60.0f / mapController.getCurrentBPM(barExecutedTime)) * 4.0f;\n\n\t\tscore = 0;\n\t\thitted = 0;\n\t\tcombo = new int[2] {0, 0};\n\t\tnoteCnt = 0;\n\t\tupdateScoreAndCombo();\n\t\tisInit = false;\n\t\tisBarEnd = true;\n\t\tStartCoroutine(gameStart());\n\t}\n\n\tvoid Update() {\n\t\tif (isInit && (waveMark < thisStage.bars.Count)) {\n            songTimer = mapController.getSongTimer();\n\n            if ((songTimer + timeOffset) >= (barExecutedTime - barTime) && isBarEnd) {\n            \tDebug.Log(\"songTime: \" + songTimer + \", barExecutedTime: \" + barExecutedTime);\n            \tStartCoroutine(spawnBar ());\n            \tbarExecutedTime += barTime;\n            }\n        }\n\t}\n\n\tIEnumerator spawnBar () {\n\t\tisBarEnd = false;\n\t\tList<Notes> thisWave = thisStage.bars[waveMark++];\n\t\tbarTime = (60.0f / mapController.getCurrentBPM(barExecutedTime)) * 4.0f;\n\t\tfor(int i = 0; i < thisWave.Count; i++) {\n\t\t\tyield return spawnNote(thisWave[i], thisWave.Count);\n\t\t}\n\t\tisBarEnd = true;\n\t}\n\n\tIEnumerator spawnNote (Notes currentBar, int count) {\n\t\tVector3 notePos = new Vector3 (0, transform.position.y, transform.position.z - 1);\n\t\tif(currentBar.left) {\n\t\t\tnotePos.x = xPosList[0];\n\t\t\tInstantiate (notes.leftNote, notePos, notes.leftNote.transform.rotation);\n\t\t\tnoteCnt++;\n\t\t}\n\t\tif(currentBar.down) {\n\t\t\tnotePos.x = xPosList[1];\n\t\t\tInstantiate (notes.downNote, notePos, notes.downNote.transform.rotation);\n\t\t\tnoteCnt++;\n\t\t}\n\t\tif(currentBar.up) {\n\t\t\tnotePos.x = xPosList[2];\n\t\t\tInstantiate (notes.upNote, notePos, notes.upNote.transform.rotation);\n\t\t\tnoteCnt++;\n\t\t}\n\t\tif(currentBar.right) {\n\t\t\tnotePos.x = xPosList[3];\n\t\t\tInstantiate (notes.rightNote, notePos, notes.rightNote.transform.rotation);\n\t\t\tnoteCnt++;\n\t\t}\n\t\tyield return new WaitForSeconds((barTime / count) - Time.deltaTime);\n\t}\n\n\tpublic float getSongTime() {\n\t\treturn songTimer;\n\t}\n\n\tpublic void comboSuccess() {\n\t\thitted += 1;\n\t\tcombo[0] += 1;\n\t\tif(combo[0] > combo[1]) combo[1] = combo[0];\n\t\tscore += 10 * combo[0];\n\t\tupdateScoreAndCombo();\n\t}\n\n\tpublic void comboFail(int name) {\n\t\tcombo[0] = 0;\n\t\tDebug.Log(name + \"'s end time: \" + songTimer);\n\t\tupdateScoreAndCombo();\n\t}\n\n\tvoid updateScoreAndCombo() {\n\t\tstring scoreStr = score.ToString();\n\t\tscoreText.text = \"Score: \\n\" + scoreStr.PadLeft(8, '0');\n\t\tif(combo[0] > 1)\n\t\t\tcomboText.text = \"x\" + combo[0];\n\t\telse\n\t\t\tcomboText.text = \"\";\n\t}\n\n\tIEnumerator gameStart(){\n\t\tyield return new WaitForSeconds (offset);\n\t\tDebug.Log(\"Game Start\");\n\t\tisInit = true;\n\t\tyield return mapController.playAudio (timeOffset);\n\t}\n\n\tIEnumerator gameEnd(){\n\t\tyield return new WaitForSeconds (offset);\n\t\tPlayerPrefs.SetInt(\"score\", score);\n\t\tPlayerPrefs.SetInt(\"maxCombo\", combo[1]);\n\t\tPlayerPrefs.SetInt(\"playerHitted\", hitted);\n\t\tPlayerPrefs.SetInt(\"totalBeats\", noteCnt);\n\t\tanim.SetBool(\"Fade\", true);\n\t\tyield return new WaitUntil(() => black.color.a == 1);\n\t\tSceneManager.LoadScene(\"ScoreBoard\", LoadSceneMode.Single);\n\t}\n}\n",
+			"file": "Assets/Scripts/GameController.cs",
+			"file_size": 4448,
+			"file_write_time": 131404376316560924,
+			"settings":
+			{
+				"buffer_size": 4290,
+				"line_ending": "Windows",
+				"scratch": true
+			}
+		},
+		{
+			"contents": "using System.IO;\nusing System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\n\npublic class MapController : MonoBehaviour {\n\tpublic bool _loadComplete;\n\tpublic AudioSource _nowPlaying;\n\tpublic bool _isStarted;\n\n\tprivate List<MetaData> metaList;\n\tprivate int songIndex;\n\tprivate List<int> difficulties;\n\tprivate int difficultyIndex;\n\tprivate List<startBPM> startBPMs;\n\tprivate int nextBPMIndex;\n\n\tvoid Start () {\n\t\tDontDestroyOnLoad(this);\n\t\t_loadComplete = false;\n\t\tmetaList = new List<MetaData>();\n\t\tDirectoryInfo baseDir = new DirectoryInfo(\"Songs\");\n\t\tDirectoryInfo[] dirArray = baseDir.GetDirectories();\n\t\tforeach (DirectoryInfo subDir in dirArray) {\n\t\t\tFileInfo[] smFiles = subDir.GetFiles(\"*.sm\");\n\t\t\tif(smFiles.Length == 1) {\n\t\t\t\tMetaData newSong = new MetaData(subDir, smFiles[0].FullName);\n\t\t\t\tmetaList.Add(newSong);\n\t\t\t}\n\t\t}\n\t\t_loadComplete = true;\n\t\t_isStarted = false;\n\t\tsongIndex = 0;\n\t\tdifficulties = new List<int>();\n\t\tstartBPMs = metaList[songIndex].bpms;\n\t\tnextBPMIndex = (startBPMs.Count > 1) ? 1 : 0;\n\t\tsetDifficulties(metaList[songIndex]);\n\t}\n\n\tvoid setDifficulties(MetaData map) {\n\t\tdifficulties.Clear();\n\t\tif(map.beginnerExists) difficulties.Add(0);\n\t\tif(map.easyExists) difficulties.Add(1);\n\t\tif(map.beginnerExists) difficulties.Add(2);\n\t\tif(map.hardExists) difficulties.Add(3);\n\t\tif(map.challengeExists) difficulties.Add(4);\n\t\tdifficultyIndex = 0;\n\t}\n\n\tpublic List<MetaData> getSongList() {\n\t\treturn metaList;\n\t}\n\n\tpublic List<int> getDifficultyList() {\n\t\treturn difficulties;\n\t}\n\n\tpublic MetaData getCurrentSong() {\n\t\treturn metaList[songIndex];\n\t}\n\n\tpublic int getCurrentDifficulty() {\n\t\treturn difficulties[difficultyIndex];\n\t}\n\n\tpublic NoteData getCurrentStage() {\n\t\tswitch(difficulties[difficultyIndex]) {\n\t\t\tcase 0:\n\t\t\t\treturn metaList[songIndex].beginner;\n\t\t\tcase 1:\n\t\t\t\treturn metaList[songIndex].easy;\n\t\t\tcase 2:\n\t\t\t\treturn metaList[songIndex].medium;\n\t\t\tcase 3:\n\t\t\t\treturn metaList[songIndex].hard;\n\t\t\tcase 4:\n\t\t\t\treturn metaList[songIndex].challenge;\n\t\t\tdefault:\n\t\t\t\treturn new NoteData();\n\t\t}\n\t}\n\n\tpublic float getCurrentBPM(float gamePos) {\n\t\tif(startBPMs.Count == 1) return startBPMs[0].mapBPM;\n\t\tif(startBPMs[nextBPMIndex].mapPos <= gamePos)\n\t\t\tnextBPMIndex += 1;\n\t\treturn startBPMs[nextBPMIndex - 1].mapBPM;\n\t}\n\n\tpublic float getCurrentOffset() {\n\t\treturn metaList[songIndex].offset;\n\t}\n\n\tpublic void shiftSong(bool right) {\n\t\tint length = metaList.Count;\n\t\tsongIndex += right ? 1 : -1;\n\t\tif(songIndex == -1) songIndex = length - 1;\n\t\telse if(songIndex == length) songIndex = 0;\n\t\tstartBPMs = metaList[songIndex].bpms;\n\t\tsetDifficulties(metaList[songIndex]);\n\t}\n\n\tpublic void shiftDifficulties(bool down) {\n\t\tint length = difficulties.Count;\n\t\tdifficultyIndex += down ? 1 : -1;\n\t\tif(difficultyIndex == -1) difficultyIndex = length - 1;\n\t\telse if(difficultyIndex == length) difficultyIndex = 0;\n\t}\n\n\tpublic float getSongTimer() {\n\t\treturn _nowPlaying.time;\n\t}\n\n\tpublic IEnumerator playSampleAudio() {\n\t\tstring path = metaList[songIndex].musicPath;\n\t\tfloat timeStart = metaList[songIndex].sampleStart;\n\t\tfloat timeDuration = metaList[songIndex].sampleLength;\n\t\tint playingIndex = songIndex;\n\t\tWWW www = new WWW(\"file://\" + path.Replace(\"\\\\\", \"/\"));\n\t\tyield return www;\n\t\t_nowPlaying.clip = (path.LastIndexOf(\".mp3\") != -1) ? NAudioPlayer.FromMp3Data(www.bytes) : www.GetAudioClip(false);\n\t\twhile(playingIndex == songIndex) {\n\t\t\t_nowPlaying.volume = 1;\n\t\t\t_nowPlaying.time = timeStart;\n\t\t\t_nowPlaying.Play();\n\t\t\twhile(_nowPlaying.time < (timeStart + timeDuration - 1)) {\n\t\t\t\tyield return new WaitForSeconds(0.01f);\n\t\t\t\tif(playingIndex != songIndex) break;\n\t\t\t}\n\t\t\tfloat t = _nowPlaying.volume;\n\t\t\twhile (t > 0.0f) {\n\t\t\t\tif(playingIndex != songIndex) break;\n\t\t\t\tt -= 0.01f;\n\t\t\t\t_nowPlaying.volume = t;\n\t\t\t\tyield return new WaitForSeconds(0.01f);\n\t\t\t}\n\t\t\tif(playingIndex != songIndex) break;\n\t\t\t_nowPlaying.Stop();\n\t\t}\n\t}\n\n\tpublic IEnumerator playAudio(float offset) {\n\t\t_isStarted = true;\n\t\tyield return new WaitForSeconds(offset);\n\t\t_nowPlaying.Play();\n\t\tDebug.Log(\"playing The audio\");\n\t}\n}\n",
+			"file": "Assets/Scripts/MapController.cs",
+			"file_size": 4198,
+			"file_write_time": 131403821766576013,
+			"settings":
+			{
+				"buffer_size": 4047,
+				"line_ending": "Windows",
+				"scratch": true
 			}
 		}
 	],
@@ -667,22 +686,23 @@
 	],
 	"file_history":
 	[
+		"/D/Projects/UnityProjects/Pool-Homework/Assets/Script/HoleController.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/GameController.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/MenuController.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/MetaData.cs",
+		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/MapController.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/FontBlinking.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/ShowDifficulty.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/NoteController.cs",
-		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/MetaData.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/SuccessTrigger.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Songs/Bad Apple!!/Bad Apple!!.sm",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Songs/Bad Apple!! (REDALiCE Remix)/Bad Apple!! (REDALiCE Remix).sm",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/LoadingController.cs",
-		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/MenuController.cs",
-		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/MapController.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Shader/SpriteGradient.shader",
 		"/D/Software Portable/PortableApps/Subline Text 3/Data/Packages/UnityShader/UnityShader.sublime-settings",
 		"/D/Software Portable/PortableApps/Subline Text 3/Data/Packages/User/UnityShader.sublime-settings",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/GradientColor.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/MusicController.cs",
-		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/GameController.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Songs/[CMC-008]Little Busters! ~TV animation ver.~/Little Busters! ~TV animation ver.~.sm",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/ScoreDisplay.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/NAudioPlayer.cs",
@@ -690,7 +710,6 @@
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/mapData.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/.gitignore",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Songs/Trust's  Dwi 2012.10.15 (NO.13) [ Little Busters! op] v1/Little Busters OP.sm",
-		"/D/Projects/UnityProjects/Pool-Homework/Assets/Script/HoleController.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Assets/Scripts/songAssets.cs",
 		"/D/Projects/UnityProjects/Music Rhythm Game/Music Rhythm Game.sublime-project",
 		"/D/Software Portable/PortableApps/Subline Text 3/Data/Packages/OmniSharp/PrebuiltOmniSharpServer/config.json",
@@ -813,6 +832,27 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"UnityObject",
+			" ",
+			"timer",
+			"clone = ",
+			"clone",
+			" as Rigidbody",
+			".transform.rotation)",
+			"notes.leftNote.transform.rotation)",
+			"Instantiate",
+			"x",
+			"y",
+			"abs",
+			"radius",
+			"radius2",
+			"radius",
+			"area",
+			"down",
+			"right",
+			"up",
+			"left",
+			"up",
 			"dis",
 			"getCurrentOffset()",
 			"original",
@@ -919,28 +959,7 @@
 			">>",
 			"Array<int>",
 			"class T",
-			"class",
-			"cout",
-			"tmp.i[it]",
-			"handle_events",
-			"450",
-			"630",
-			"3",
-			"9",
-			"_x",
-			"rand_mover",
-			"v",
-			"swap",
-			"Puzzle_clip[i]",
-			"empty_num",
-			",",
-			"Puzzle_array",
-			",",
-			"Combo",
-			"'",
-			"meta",
-			"double",
-			"xPosList"
+			"class"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1072,197 +1091,11 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Scripts/MapController.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4047,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3942,
-								3942
-							]
-						],
-						"settings":
-						{
-							"in_converting": true,
-							"is_init_dirty_state": false,
-							"oops":
-							{
-								"1370,1381": "'getSongList' should start with an upper case letter. (Rule 'Methods')",
-								"1427,1444": "'getDifficultyList' should start with an upper case letter. (Rule 'Methods')",
-								"1493,1507": "'getCurrentSong' should start with an upper case letter. (Rule 'Methods')",
-								"1558,1578": "'getCurrentDifficulty' should start with an upper case letter. (Rule 'Methods')",
-								"1644,1659": "'getCurrentStage' should start with an upper case letter. (Rule 'Methods')",
-								"2018,2031": "'getCurrentBPM' should start with an upper case letter. (Rule 'Methods')",
-								"2236,2245": "'shiftSong' should start with an upper case letter. (Rule 'Methods')",
-								"2251,2256": "Parameter can be IComparable",
-								"2511,2528": "'shiftDifficulties' should start with an upper case letter. (Rule 'Methods')",
-								"2534,2538": "Parameter can be IComparable",
-								"2747,2759": "'getSongTimer' should start with an upper case letter. (Rule 'Methods')",
-								"2815,2830": "'playSampleAudio' should start with an upper case letter. (Rule 'Methods')",
-								"3026,3029": "Use 'var' keyword",
-								"3129,3140": "'System.String.LastIndexOf' is culture-aware and missing a StringComparison argument",
-								"3773,3782": "'playAudio' should start with an upper case letter. (Rule 'Methods')",
-								"494,507": "Use 'var' keyword",
-								"730,738": "Use 'var' keyword"
-							},
-							"origin_encoding": "UTF-8-SIG",
-							"revert_to_scratch": true,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3354.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Assets/Scripts/MetaData.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5939,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2533,
-								2539
-							]
-						],
-						"settings":
-						{
-							"origin_encoding": "ASCII",
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2213.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Assets/Scripts/MenuController.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3004,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2132,
-								2135
-							]
-						],
-						"settings":
-						{
-							"in_converting": true,
-							"is_init_dirty_state": false,
-							"oops":
-							{
-								"1033,1043": "Comparison of floating point numbers can be unequal due to the differing precision of the two values.",
-								"1110,1126": "Comparison of floating point numbers can be unequal due to the differing precision of the two values.",
-								"210,222": "'MetaDataName' should start with a lower case letter. (Rule 'Fields')",
-								"237,251": "'MetaDataArtist' should start with a lower case letter. (Rule 'Fields')",
-								"2518,2521": "Use 'var' keyword",
-								"270,278": "'BannerBG' should start with a lower case letter. (Rule 'Fields')",
-								"2918,2923": "Comparison of floating point numbers can be unequal due to the differing precision of the two values.",
-								"294,312": "Name should have prefix '_'. (Rule 'Fields').",
-								"328,333": "Name should have prefix '_'. (Rule 'Fields').",
-								"352,356": "Name should have prefix '_'. (Rule 'Fields').",
-								"40,45": "Using directive is not used by code and can be removed safely.",
-								"453,467": "The private field 'nowPlayingPath' is never assigned",
-								"507,513": "The private field 'MaxVol' is never assigned"
-							},
-							"origin_encoding": "UTF-8-SIG",
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1121.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Assets/Scripts/GameController.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4051,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2167,
-								2167
-							]
-						],
-						"settings":
-						{
-							"in_converting": true,
-							"is_init_dirty_state": false,
-							"oops":
-							{
-								"1675,1676": "Redundant explicit size in array creation",
-								"200,208": "Name should have prefix '_'. (Rule 'Fields').",
-								"210,218": "Name should have prefix '_'. (Rule 'Fields').",
-								"220,226": "Name should have prefix '_'. (Rule 'Fields').",
-								"228,237": "Name should have prefix '_'. (Rule 'Fields').",
-								"2522,2529": "Use 'var' keyword",
-								"3278,3290": "'comboSuccess' should start with an upper case letter. (Rule 'Methods')",
-								"3442,3451": "'comboFail' should start with an upper case letter. (Rule 'Methods')",
-								"4024,4029": "Comparison of floating point numbers can be unequal due to the differing precision of the two values.",
-								"440,441": "Empty argument list is redundant",
-								"510,511": "Empty argument list is redundant",
-								"570,576": "Name should have prefix '_'. (Rule 'Fields').",
-								"592,608": "Name should have prefix '_'. (Rule 'Fields').",
-								"626,631": "Name should have prefix '_'. (Rule 'Fields').",
-								"646,655": "Name should have prefix '_'. (Rule 'Fields').",
-								"670,679": "Name should have prefix '_'. (Rule 'Fields').",
-								"695,700": "Name should have prefix '_'. (Rule 'Fields').",
-								"719,723": "Name should have prefix '_'. (Rule 'Fields').",
-								"937,945": "The private field 'barCount' is never assigned"
-							},
-							"origin_encoding": "UTF-8-SIG",
-							"revert_to_scratch": true,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1563.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "Songs/[CMC-008]Little Busters! ~TV animation ver.~/Little Busters! ~TV animation ver.~.sm",
 					"semi_transient": false,
 					"settings":
@@ -1274,20 +1107,265 @@
 						"selection":
 						[
 							[
-								335,
-								339
+								354,
+								354
+							]
+						],
+						"settings":
+						{
+							"in_converting": true,
+							"is_init_dirty_state": false,
+							"origin_encoding": "UTF-8-SIG",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Assets/Scripts/NoteController.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1402,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								424,
+								424
+							]
+						],
+						"settings":
+						{
+							"in_converting": true,
+							"is_init_dirty_state": false,
+							"oops":
+							{
+								"0,5": "Using directive is not used by code and can be removed safely.",
+								"1372,1379": "Redundant empty 'default' switch branch",
+								"140,145": "Name should have prefix '_'. (Rule 'Fields').",
+								"165,171": "Name should have prefix '_'. (Rule 'Fields').",
+								"193,205": "Name should have prefix '_'. (Rule 'Fields').",
+								"26,31": "Using directive is not used by code and can be removed safely.",
+								"852,860": "Parameter can be declared with base type"
+							},
+							"origin_encoding": "UTF-8-SIG",
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 702.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3415,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3057,
+								3057
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"is_init_dirty_state": false,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2035.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Shader/SpriteGradient.shader",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1696,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1137,
+								1148
 							]
 						],
 						"settings":
 						{
 							"is_init_dirty_state": false,
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Unity Shader/UnityShader.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 390.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/D/Projects/UnityProjects/Pool-Homework/Assets/Script/GlobalBallEffects.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 267,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								247,
+								261
+							]
+						],
+						"settings":
+						{
+							"is_init_dirty_state": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Assets/Scripts/GameController.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4290,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1797,
+								1797
+							]
+						],
+						"settings":
+						{
+							"in_converting": true,
+							"is_init_dirty_state": false,
+							"oops":
+							{
+								"1521,1522": "Redundant explicit size in array creation",
+								"200,208": "Name should have prefix '_'. (Rule 'Fields').",
+								"210,218": "Name should have prefix '_'. (Rule 'Fields').",
+								"220,226": "Name should have prefix '_'. (Rule 'Fields').",
+								"228,237": "Name should have prefix '_'. (Rule 'Fields').",
+								"2418,2425": "Use 'var' keyword",
+								"3175,3186": "'getSongTime' should start with an upper case letter. (Rule 'Methods')",
+								"3228,3240": "'comboSuccess' should start with an upper case letter. (Rule 'Methods')",
+								"3392,3401": "'comboFail' should start with an upper case letter. (Rule 'Methods')",
+								"3406,3410": "Parameter can be IComparable",
+								"4202,4207": "Comparison of floating point numbers can be unequal due to the differing precision of the two values.",
+								"440,441": "Empty argument list is redundant",
+								"474,480": "Name should have prefix '_'. (Rule 'Fields').",
+								"496,504": "Name should have prefix '_'. (Rule 'Fields').",
+								"522,527": "Name should have prefix '_'. (Rule 'Fields').",
+								"542,551": "Name should have prefix '_'. (Rule 'Fields').",
+								"566,575": "Name should have prefix '_'. (Rule 'Fields').",
+								"591,596": "Name should have prefix '_'. (Rule 'Fields').",
+								"615,619": "Name should have prefix '_'. (Rule 'Fields').",
+								"857,865": "The private field 'barCount' is never assigned",
+								"882,892": "The private field 'arrowSpeed' is never assigned"
+							},
+							"origin_encoding": "UTF-8-SIG",
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1169.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Assets/Scripts/MapController.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4047,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3906,
+								3918
+							]
+						],
+						"settings":
+						{
+							"in_converting": true,
+							"is_init_dirty_state": false,
+							"oops":
+							{
+								"1417,1428": "'getSongList' should start with an upper case letter. (Rule 'Methods')",
+								"1474,1491": "'getDifficultyList' should start with an upper case letter. (Rule 'Methods')",
+								"1540,1554": "'getCurrentSong' should start with an upper case letter. (Rule 'Methods')",
+								"1605,1625": "'getCurrentDifficulty' should start with an upper case letter. (Rule 'Methods')",
+								"1691,1706": "'getCurrentStage' should start with an upper case letter. (Rule 'Methods')",
+								"2065,2078": "'getCurrentBPM' should start with an upper case letter. (Rule 'Methods')",
+								"2284,2300": "'getCurrentOffset' should start with an upper case letter. (Rule 'Methods')",
+								"2359,2368": "'shiftSong' should start with an upper case letter. (Rule 'Methods')",
+								"2374,2379": "Parameter can be IComparable",
+								"2634,2651": "'shiftDifficulties' should start with an upper case letter. (Rule 'Methods')",
+								"2657,2661": "Parameter can be IComparable",
+								"2870,2882": "'getSongTimer' should start with an upper case letter. (Rule 'Methods')",
+								"2938,2953": "'playSampleAudio' should start with an upper case letter. (Rule 'Methods')",
+								"3149,3152": "Use 'var' keyword",
+								"3252,3263": "'System.String.LastIndexOf' is culture-aware and missing a StringComparison argument",
+								"3896,3905": "'playAudio' should start with an upper case letter. (Rule 'Methods')",
+								"519,532": "Use 'var' keyword",
+								"755,763": "Use 'var' keyword"
+							},
+							"origin_encoding": "UTF-8-SIG",
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3354.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
 					"type": "text"
 				}
 			]

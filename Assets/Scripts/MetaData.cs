@@ -209,6 +209,7 @@ public class MetaData{
 			} else if(line.Contains(":")){
 				continue;
 			} else if (line.Length <= 4) {
+				// Debug.Log("Line: " + line);
 				Notes note = new Notes();
 				note.left = (line[0] != '0');
 				note.down = (line[1] != '0');
